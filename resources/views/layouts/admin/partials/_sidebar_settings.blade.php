@@ -104,14 +104,7 @@
                         </li>
                     @endif
                     @if (\App\CentralLogics\Helpers::module_permission_check('settings'))
-                        <li
-                            class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/business-setup*') || Request::is('admin/business-settings/language*') ? 'active' : '' }}">
-                            <a class="nav-link " href="{{ route('admin.business-settings.business-setup') }}"
-                                title="{{ translate('messages.business_setup') }}">
-                                <span class="tio-settings nav-icon"></span>
-                                <span class="text-truncate">{{ translate('messages.business_settings') }}</span>
-                            </a>
-                        </li>
+
                         <li
                             class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages*') ? 'active' : '' }}">
                             <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:"
@@ -135,18 +128,28 @@
 
                                 <li
                                     class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages/admin-landing-page-settings*') ? 'active' : '' }}">
-                                    <a class="nav-link "
+                                    {{-- <a class="nav-link "
                                         href="{{ route('admin.business-settings.admin-landing-page-settings', 'fixed-data') }}"
                                         title="{{ translate('messages.admin_landing_page_settings') }}">
                                         <span class="tio-circle nav-indicator-icon"></span>
                                         <span
                                             class="text-truncate">{{ translate('messages.admin_landing_page') }}</span>
+                                            <span
+                                            class="text-truncate">Vendor Settings</span>
+                                    </a> --}}
+                                    <a class="nav-link"
+                                        href="{{ route('admin.business-settings.admin-landing-page-settings', 'earn-money') }}"
+                                        title="{{ translate('messages.admin_landing_page_settings') }}">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+
+                                            <span
+                                            class="text-truncate">Vendor Settings</span>
                                     </a>
                                 </li>
 
 
                                 {{-- vandor landing  page --}}
-                                <li
+                                {{-- <li
                                     class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages/vendor-landing-page-settings*') ? 'active' : '' }}">
                                     <a class="nav-link "
                                         href="{{ route('admin.business-settings.vendor-landing-page-settings', 'fixed-data') }}"
@@ -155,7 +158,7 @@
                                         <span
                                             class="text-truncate">{{ translate('messages.vendor_landing_page') }}</span>
                                     </a>
-                                </li>
+                                </li> --}}
                                 {{-- vandor landing  page --}}
                                 <li
                                     class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages/react-landing-page-settings*') ? 'active' : '' }}">
@@ -258,33 +261,6 @@
 
 
 
-                        <li
-                            class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages*') ? 'active' : '' }}">
-                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:"
-                                title="{{ translate('messages.pages_setup') }}">
-                                <i class="tio-pages nav-icon"></i>
-                                <span
-                                    class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">{{ translate('messages.pages_&_social_media') }}</span>
-                            </a>
-                            <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
-                                style="display:{{ Request::is('admin/business-settings/pages*') ? 'block' : 'none' }}">
-
-                                <li
-                                    class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages/social-media') ? 'active' : '' }}">
-                                    <a class="nav-link "
-                                        href="{{ route('admin.test') }}"
-                                        title="{{ translate('messages.Social Media') }}">
-                                        <span class="tio-circle nav-indicator-icon"></span>
-                                        <span class="text-truncate">{{ translate('messages.Social Media') }}</span>
-                                    </a>
-                                </li>
-
-
-
-
-
-                            </ul>
-                        </li>
 
                         {{--  --}}
 
@@ -293,8 +269,7 @@
                             <a class="nav-link " href="{{ route('admin.business-settings.file-manager.index') }}"
                                 title="{{ translate('messages.gallery') }}">
                                 <span class="tio-album nav-icon"></span>
-                                <span
-                                    class="text-truncate text-capitalize">{{ translate('messages.gallery') }}</span>
+                                <span class="text-truncate text-capitalize">{{ translate('messages.gallery') }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -332,8 +307,7 @@
                                 </li>
                                 <li
                                     class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/login-url-setup*') ? 'active' : '' }}">
-                                    <a class="nav-link "
-                                        href="{{ route('admin.business-settings.login_url_page') }}"
+                                    <a class="nav-link " href="{{ route('admin.business-settings.login_url_page') }}"
                                         title="{{ translate('messages.login_url_page') }}">
                                         <span class="tio-circle nav-indicator-icon"></span>
                                         <span class="text-truncate">{{ translate('messages.login_url_page') }}</span>
@@ -573,23 +547,23 @@
                     const suggestions = [
                         '{{ strtolower(
                             translate('
-                                                                                                                                                                                                                                                            messages.zone '),
+                                                                                                                                                                                                                                                                                    messages.zone '),
                         ) }}',
                         '{{ strtolower(
                             translate('
-                                                                                                                                                                                                                                                                messages.setting '),
+                                                                                                                                                                                                                                                                                        messages.setting '),
                         ) }}',
                         '{{ strtolower(
                             translate('
-                                                                                                                                                                                                                                                                messages.pages '),
+                                                                                                                                                                                                                                                                                        messages.pages '),
                         ) }}',
                         '{{ strtolower(
                             translate('
-                                                                                                                                                                                                                                                                messages .3 rd_party '),
+                                                                                                                                                                                                                                                                                        messages .3 rd_party '),
                         ) }}',
                         '{{ strtolower(
                             translate('
-                                                                                                                                                                                                                                                                messages.system '),
+                                                                                                                                                                                                                                                                                        messages.system '),
                         ) }}'
                     ];
                     --
