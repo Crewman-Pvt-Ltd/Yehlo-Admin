@@ -13,6 +13,7 @@ class Item extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $fillable = ['brand_id'];
     protected $casts = [
         'tax' => 'float',
         'price' => 'float',

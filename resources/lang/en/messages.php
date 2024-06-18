@@ -4433,4 +4433,22 @@
   '
                                                                                                                                                                                                                                                                 messages.system ' => '
                                                                                                                                                                                                                                                                 messages.system ',
+  'Electronics' => 'Electronics',
+  'Mobiles' => 'Mobiles',
+  'Add new brand' => 'Add new brand',
+  'The module id field is required.' => 'The module id field is required.',
+  'The brand name field is required.' => 'The brand name field is required.',
+  'Want to delete this brand' => 'Want to delete this brand',
+  'The brand name must be a string.' => 'The brand name must be a string.',
+  'Fashion' => 'Fashion',
+  'Appliances' => 'Appliances',
+  'Sports Fitness' => 'Sports Fitness',
+  'Pet Supplies' => 'Pet Supplies',
+  'The file must be a file of type: pdf, doc, docx.' => 'The file must be a file of type: pdf  doc  docx.',
+  'Maximum_Purchase_Quantitys_Limit' => 'Maximum Purchase Quantitys Limit',
+  'Cancellation Policy' => 'Cancellation Policy',
+  'cancellation_policy_updated' => 'Cancellation policy updated',
+  'Discount amount can\'t be greater than 100%
+' => 'Discount amount can t be greater than 100%
+',
 );

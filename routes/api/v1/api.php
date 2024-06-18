@@ -4,6 +4,7 @@ use App\WebSockets\Handler\DMLocationSocketHandler;
 use Illuminate\Support\Facades\Route;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 use App\Http\Controllers\Api\V1\StoreReferralController;
+use App\Http\Controllers\Admin\BrandController;
 
 
 /*
@@ -17,6 +18,9 @@ use App\Http\Controllers\Api\V1\StoreReferralController;
 */
 
 Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function () {
+   
+    Route::get('/getallbrands', [BrandController::class, 'getBrand']);
+
 
     Route::post('referrals', 'StoreReferralController@create');
     Route::get('zone/list', 'ZoneController@get_zones');
