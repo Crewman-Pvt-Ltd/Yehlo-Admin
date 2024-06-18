@@ -44,6 +44,7 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
 
         $validator = Validator::make($request->all(), [
             'name.0' => 'required',
@@ -60,6 +61,7 @@ class ItemController extends Controller
             'description.*' => 'max:1000',
             'name.0' => 'required',
             'description.0' => 'required',
+       
         ], [
             'description.*.max' => translate('messages.description_length_warning'),
             'name.0.required' => translate('messages.item_name_required'),
@@ -250,6 +252,9 @@ class ItemController extends Controller
         $item->store_id = $request->store_id;
         $item->maximum_cart_quantity = $request->maximum_cart_quantity;
         $item->veg = $request->veg;
+        if ($request->has('brand_id')){
+            $item->brand_id = $request->brand_id;
+        }
         $item->module_id = Config::get('module.current_module_id');
         $module_type = Config::get('module.current_module_type');
         if ($module_type == 'grocery') {

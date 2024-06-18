@@ -271,12 +271,12 @@
 
                                 <li
                                     class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages/social-media') ? 'active' : '' }}">
-                                    <a class="nav-link "
+                                    {{-- <a class="nav-link "
                                         href="{{ route('admin.test') }}"
                                         title="{{ translate('messages.Social Media') }}">
                                         <span class="tio-circle nav-indicator-icon"></span>
                                         <span class="text-truncate">{{ translate('messages.Social Media') }}</span>
-                                    </a>
+                                    </a> --}}
                                 </li>
 
 
