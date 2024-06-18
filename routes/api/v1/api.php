@@ -279,6 +279,10 @@ Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function
     Route::get('stores/details/{id}', 'StoreController@get_details');
 
     Route::group(['middleware' => ['module-check']], function () {
+
+        //
+        Route::get('get-combined-data', 'ItemController@get_combined_data');
+        //
         Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
             // Route::group(['prefix' => 'customer'], function () {
             Route::get('notifications', 'NotificationController@get_notifications');
@@ -364,9 +368,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function
             Route::get('set-menu', 'ItemController@get_set_menus');
             Route::get('search', 'ItemController@get_searched_products');
 
-            //
-            Route::get('combined-data', 'ItemController@get_combined_data');
-            //
+
 
             Route::get('search-suggestion', 'ItemController@get_searched_products_suggestion');
             Route::get('details/{id}', 'ItemController@get_product');
