@@ -404,7 +404,6 @@ class ItemController extends Controller
 
     public function get_combined_data(Request $request)
     {
-        // Validate incoming request parameters
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|string',
             'data_type' => 'required|string|in:brand,searched,category,subcategory,new,discounted',
@@ -420,7 +419,6 @@ class ItemController extends Controller
             return response()->json(['errors' => $validator->errors()], 403);
         }
 
-        // Initialize request parameters
         $zone_id = $request->header('zoneId');
         $module_id = $request->header('moduleId');
         $name = $request->input('name');
@@ -435,10 +433,11 @@ class ItemController extends Controller
         $min_price = $request->input('min_price', 0);
         $max_price = $request->input('max_price', 20000);
 
-        // Initialize item query
         $itemQuery = Item::query();
 
-        // Apply common filters
+        $category_ids = $category_ids ? explode(',', trim($category_ids, '[]')) : [];
+        $brand_ids = $brand_ids ? explode(',', trim($brand_ids, '[]')) : [];
+
         if (!empty($category_ids)) {
             $itemQuery->where(function ($query) use ($category_ids) {
                 $query->whereIn('category_id', $category_ids)
@@ -450,38 +449,36 @@ class ItemController extends Controller
             $itemQuery->whereIn('brand_id', $brand_ids);
         }
 
-        if (!empty($filter)) {
-            foreach ($filter as $key => $value) {
-                $itemQuery->where($key, $value);
-            }
+        // Handle brand data type search by name
+        if ($data_type === 'brand' && $name) {
+            $brand_ids = Brand::where('brand_name', 'like', "%{$name}%")->pluck('id')->toArray();
+            $itemQuery->whereIn('brand_id', $brand_ids);
         }
 
+        // Handle price range
         if ($min_price !== null && $max_price !== null) {
             $itemQuery->whereBetween('price', [$min_price, $max_price]);
         }
 
+        // Handle rating count
         if ($rating_count > 0) {
             $itemQuery->where('rating_count', '>=', $rating_count);
         }
 
-        // Apply zone and module filters
+        // Handle zone filtering
         if ($zone_id) {
             $itemQuery->whereHas('module.zones', function ($q) use ($zone_id) {
                 $q->whereIn('zones.id', json_decode($zone_id, true));
             });
         }
 
+        // Handle module filtering
         if ($module_id) {
             $itemQuery->where('module_id', $module_id);
             $moduleData = Module::find($module_id);
         }
 
-        // Handle different data types
-        if ($data_type === 'brand' && $name) {
-            $brand_ids = Brand::where('name', 'like', "%{$name}%")->pluck('id')->toArray();
-            $itemQuery->whereIn('brand_id', $brand_ids);
-        }
-
+        // Handle searched data type
         if ($data_type === 'searched' && $name) {
             $keywords = explode(' ', $name);
             $itemQuery->where(function ($q) use ($keywords) {
@@ -500,39 +497,54 @@ class ItemController extends Controller
             });
         }
 
+        // Handle new data type
         if ($data_type === 'new') {
             $itemQuery->orderBy('created_at', 'desc');
         }
 
+        // Handle discounted data type
         if ($data_type === 'discounted') {
             $itemQuery->where('discount', '>', 0);
         }
 
-        // Handle category types
+        // Handle category and subcategory data types without category IDs
         if (in_array($data_type, ['category', 'subcategory']) && empty($category_ids)) {
             $categories = Category::where('parent_id', 0)->get();
             return response()->json([
                 'total_size' => $categories->count(),
                 'limit' => $limit,
                 'offset' => $offset,
-                'data' => $categories
+                'categories' => $categories
             ], 200);
         }
 
-        // Fetch paginated results
+        // Handle list type 'store'
+        if ($list_type === 'store') {
+            // Only proceed if 'name' is provided
+            if (!$name) {
+                return response()->json(['error' => 'Name parameter is required for store list type.'], 403);
+            }
+
+            $stores = Store::where('name', 'like', "%{$name}%")->paginate($limit, ['*'], 'page', $offset);
+
+            return response()->json([
+                'total_size' => $stores->total(),
+                'limit' => $limit,
+                'offset' => $offset,
+                'stores' => $stores
+            ], 200);
+        }
+
+        // Default list type 'item' or 'product'
         $results = $itemQuery->paginate($limit, ['*'], 'page', $offset);
 
-        // Get current datetime
         $currentDateTime = now();
-
-        // Get active flash sale items
         $flashSaleItems = DB::table('flash_sale_items')
             ->join('flash_sales', 'flash_sale_items.flash_sale_id', '=', 'flash_sales.id')
             ->where('flash_sales.start_date', '<=', $currentDateTime)
             ->where('flash_sales.end_date', '>=', $currentDateTime)
             ->pluck('flash_sale_items.item_id')
             ->toArray();
-            ;
 
         $itemsWithModuleData = $results->map(function ($item) use ($moduleData, $flashSaleItems) {
             $item->module = $moduleData;
@@ -546,18 +558,12 @@ class ItemController extends Controller
                 $item->delivery_time = $store->delivery_time;
 
                 $time_range_clean = str_replace(" min", "", $item->delivery_time);
-
-                // Split the cleaned string by the hyphen
                 $time_range_parts = explode('-', $time_range_clean);
 
-                // Assign min and max values
                 if (count($time_range_parts) === 2) {
-                    $min = $time_range_parts[0];
-                    $max = $time_range_parts[1];
-                    $item->delivery_time_min = $min;
-                    $item->delivery_time_max = $max;
+                    $item->delivery_time_min = $time_range_parts[0];
+                    $item->delivery_time_max = $time_range_parts[1];
                 }
-
             }
 
             $jsonFields = ['category_ids', 'variations', 'attributes', 'choice_options'];
@@ -569,14 +575,22 @@ class ItemController extends Controller
 
             $item->flash_sale = in_array($item->id, $flashSaleItems) ? 1 : 0;
             $item->storage = [];
+
             return $item;
         });
+
+        // Prepare categories if data_type is category or subcategory
+        $categories = [];
+        if (in_array($data_type, ['category', 'subcategory'])) {
+            $categories = Category::whereIn('id', $category_ids)->get();
+        }
 
         return response()->json([
             'total_size' => $results->total(),
             'limit' => $limit,
             'offset' => $offset,
-            'products' => $itemsWithModuleData
+            'products' => $itemsWithModuleData,
+            'categories' => $categories
         ], 200);
     }
 
