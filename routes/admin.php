@@ -12,12 +12,17 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
     Route::group(['middleware' => ['admin', 'current-module']], function () {
 
         Route::get('/brand', 'BrandController@index')->name('brand');
-        Route::post('/brand-store', 'BrandController@store')->name('brand-store');
-        Route::get('/brand-edit', 'BrandController@edit')->name('brand-edit');
+        Route::post('/brand-store/{id?}', 'BrandController@store')->name('brand-store');
+        // Route::get('/brand-edit', 'BrandController@edit')->name('brand-edit');
+        Route::get('brand/{id}/edit', 'BrandController@edit')->name('brand-edit');
+
         Route::delete('/brand/{id}', 'BrandController@destroy')->name('brand-destroy');
 
-
-
+//-----------------------------------------------Brand Request-------------------------------------//
+        Route::get('/brand-request', 'BrandController@getbrandrequests')->name('brand-request');
+        Route::get('/brand/approve/{id}', 'BrandController@brandApprove')->name('brand-approve');
+        Route::get('/brand/deny/{id}', 'BrandController@brandDeny')->name('brand.deny');
+Route::delete('/brand/destroy/{id}', 'BrandController@brandDelete')->name('brand.destroy');
 
 
 
