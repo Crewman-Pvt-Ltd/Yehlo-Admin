@@ -4451,7 +4451,4 @@
   'Discount amount can\'t be greater than 100%
 ' => 'Discount amount can t be greater than 100%
 ',
-  'item_detailsss' => 'Item detailsss',
-  'The trademark field is required.' => 'The trademark field is required.',
-  'New_Brand_requests' => 'New Brand requests',
 );

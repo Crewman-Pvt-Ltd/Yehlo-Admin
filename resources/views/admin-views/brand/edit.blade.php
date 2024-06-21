@@ -20,18 +20,14 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('admin.brand-store', ['id' => $brand->id]) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.brand-store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                    
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="brand_name">Brand Name</label>
-                                <input type="text" name="brand_name" value="{{isset($brand) ? $brand->brand_name : ""  }}" class="form-control" placeholder="Enter brand name">
-                            </div>
-                            <div class="form-group">
-                                <label for="trademark">Trademark</label>
-                                <input type="text" name="trademark" value="{{isset($brand) ? $brand->trademark : ""  }}" class="form-control" placeholder="Enter trademark">
+                                <input type="text" name="brand_name"value="{{isset($brand) ? $brand->brand_name : ""  }}" class="form-control" placeholder="Enter brand name">
                             </div>
                         </div>
 
@@ -56,16 +52,6 @@
                                 </label>
                             </div>
                             @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                       
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="file">File</label>
-                                <input type="file" name="file" class="form-control" placeholder="Choose file">
-                            </div>
                         </div>
                     </div>
 

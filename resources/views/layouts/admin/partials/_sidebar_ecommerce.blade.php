@@ -388,16 +388,7 @@
 
                 <!--End Brand-->
 
-{{-- Brand Request --}}
-<li class="navbar-vertical-aside-has-menu {{ Request::is('admin/brand-request*') ? 'active' : '' }}">
-    <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.brand-request') }}" title="">
-        <i class="tio-apps nav-icon"></i>
-        <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
-            Brand Request
-        </span>
-    </a>
-</li>
-{{-- Brand Request --}}
+
                 <!-- Attributes -->
                 @if (\App\CentralLogics\Helpers::module_permission_check('attribute'))
                 <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/attribute*') ? 'active' : '' }}">

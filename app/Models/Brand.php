@@ -13,5 +13,5 @@ class Brand extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['brand_name', 'image', 'slug', 'status', 'module_id', 'items_count', 'brand_class', 'trademark','is_approved','vendor_id', 'file', 'created_at', 'updated_at','created_by','updated_by'];
+    protected $fillable = ['brand_name', 'image', 'slug', 'status', 'module_id', 'items_count', 'brand_class', 'trademark', 'file', 'created_at', 'updated_at'];
 }
