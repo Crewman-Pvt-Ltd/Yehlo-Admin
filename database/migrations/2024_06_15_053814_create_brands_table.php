@@ -20,10 +20,14 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->string('slug')->nullable();
             $table->integer('status')->default(1); 
+            $table->integer('is_approved')->default(0); 
+            $table->integer('vendor_id')->nullable();
             $table->integer('items_count')->default(0); 
             $table->integer('module_id'); 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->string('created_by')->nullable(); 
+            $table->string('updated_by')->nullable();
         });
     }
 
