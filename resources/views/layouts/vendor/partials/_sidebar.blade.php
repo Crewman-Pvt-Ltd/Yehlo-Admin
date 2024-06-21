@@ -342,6 +342,17 @@
                             </li>
                         </ul>
                     </li>
+
+                    {{--Brands --}}
+                    <li class="navbar-vertical-aside-has-menu {{ Request::is('vendor/brand*') ? 'active' : '' }}">
+                        <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('vendor.brand') }}" title="">
+                            <i class="tio-apps nav-icon"></i>
+                            <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                Brands
+                            </span>
+                        </a>
+                    </li>
+
                     @endif
 
                     <!-- DeliveryMan -->
