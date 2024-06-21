@@ -6,10 +6,12 @@ use App\Contracts\Repositories\BannerRepositoryInterface;
 use App\Contracts\Repositories\TranslationRepositoryInterface;
 use App\Contracts\Repositories\ZoneRepositoryInterface;
 use App\Enums\ViewPaths\Admin\Banner as BannerViewPath;
+use App\Enums\ViewPaths\Admin\TopBanner as TopBannerViewPath;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\BannerAddRequest;
 use App\Http\Requests\Admin\BannerUpdateRequest;
 use App\Services\BannerService;
+use App\Services\TopBannerService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -26,8 +28,7 @@ class BannerController extends BaseController
         protected BannerService $bannerService,
         protected TranslationRepositoryInterface $translationRepo,
         protected ZoneRepositoryInterface $zoneRepo
-    )
-    {
+    ) {
     }
 
     public function index(?Request $request): View|Collection|LengthAwarePaginator|null
@@ -35,10 +36,15 @@ class BannerController extends BaseController
         return $this->getAddView();
     }
 
+    public function top_index(?Request $request): View|Collection|LengthAwarePaginator|null
+    {
+        return $this->topgetAddView();
+    }
+
     private function getAddView(): View
     {
         $banners = $this->bannerRepo->getListWhere(
-            filters: ['module_id'=>Config::get('module.current_module_id'), 'created_by'=>'admin'],
+            filters: ['module_id' => Config::get('module.current_module_id'), 'created_by' => 'admin', 'pos' => null],
             relations: ['module'],
             searchValue: request()->search,
             dataLimit: config('default_pagination')
@@ -46,14 +52,36 @@ class BannerController extends BaseController
         $language = getWebConfig('language');
         $defaultLang = str_replace('_', '-', app()->getLocale());
         $zones = $this->zoneRepo->getList();
-        return view(BannerViewPath::INDEX[VIEW], compact('banners','language','defaultLang','zones'));
+        return view(BannerViewPath::INDEX[VIEW], compact('banners', 'language', 'defaultLang', 'zones'));
+    }
+
+    private function topgetAddView(): View
+    {
+        $banners = $this->bannerRepo->getListWhere(
+            filters: ['module_id' => Config::get('module.current_module_id'), 'created_by' => 'admin', 'pos' => 'top'],
+            relations: ['module'],
+            searchValue: request()->search,
+            dataLimit: config('default_pagination')
+        );
+        $language = getWebConfig('language');
+        $defaultLang = str_replace('_', '-', app()->getLocale());
+        $zones = $this->zoneRepo->getList();
+        return view(TopBannerViewPath::INDEX[VIEW], compact('banners', 'language', 'defaultLang', 'zones'));
     }
 
     public function add(BannerAddRequest $request): JsonResponse
     {
-        $banner = $this->bannerRepo->add(data: $this->bannerService->getAddData(request: $request));
+
+        $banner        = $this->bannerRepo->add(data: $this->bannerService->getAddData(request: $request));
         $this->translationRepo->addByModel(request: $request, model: $banner, modelPath: 'App\Models\Banner', attribute: 'title');
 
+        return response()->json();
+    }
+
+    public function top_add(BannerAddRequest $request): JsonResponse
+    {
+        $banner = $this->bannerRepo->add(data: $this->bannerService->getAddData(request: $request));
+        $this->translationRepo->addByModel(request: $request, model: $banner, modelPath: 'App\Models\Banner', attribute: 'title');
         return response()->json();
     }
 
@@ -63,13 +91,13 @@ class BannerController extends BaseController
         $language = getWebConfig('language');
         $defaultLang = str_replace('_', '-', app()->getLocale());
         $zones = $this->zoneRepo->getList();
-        return view(BannerViewPath::UPDATE[VIEW], compact('banner','language','defaultLang','zones'));
+        return view(BannerViewPath::UPDATE[VIEW], compact('banner', 'language', 'defaultLang', 'zones'));
     }
 
     public function update(BannerUpdateRequest $request, $id): JsonResponse
     {
         $banner = $this->bannerRepo->getFirstWithoutGlobalScopeWhere(params: ['id' => $id]);
-        $banner = $this->bannerRepo->update(id: $id ,data: $this->bannerService->getUpdateData(request: $request,banner: $banner));
+        $banner = $this->bannerRepo->update(id: $id, data: $this->bannerService->getUpdateData(request: $request, banner: $banner));
         $this->translationRepo->updateByModel(request: $request, model: $banner, modelPath: 'App\Models\Banner', attribute: 'title');
 
         return response()->json();
@@ -91,21 +119,21 @@ class BannerController extends BaseController
         );
 
         return response()->json([
-            'view'=>view(BannerViewPath::SEARCH[VIEW],compact('banners'))->render(),
-            'count'=>$banners->count()
+            'view' => view(BannerViewPath::SEARCH[VIEW], compact('banners'))->render(),
+            'count' => $banners->count()
         ]);
     }
 
     public function updateStatus(Request $request): RedirectResponse
     {
-        $this->bannerRepo->update(id: $request['id'] ,data: ['status'=>$request['status']]);
+        $this->bannerRepo->update(id: $request['id'], data: ['status' => $request['status']]);
         Toastr::success(translate('messages.banner_status_updated'));
         return back();
     }
 
     public function updateFeatured(Request $request): RedirectResponse
     {
-        $this->bannerRepo->update(id: $request['id'] ,data: ['featured'=>$request['status']]);
+        $this->bannerRepo->update(id: $request['id'], data: ['featured' => $request['status']]);
         Toastr::success(translate('messages.banner_featured_status_updated'));
         return back();
     }

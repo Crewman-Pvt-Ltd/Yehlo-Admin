@@ -2,6 +2,7 @@
 
 use App\Enums\ViewPaths\Admin\Addon;
 use App\Enums\ViewPaths\Admin\Banner;
+use App\Enums\ViewPaths\Admin\TopBanner;
 use App\Enums\ViewPaths\Admin\Category;
 use App\Enums\ViewPaths\Admin\Attribute;
 use App\Enums\ViewPaths\Admin\CommonCondition;
@@ -105,6 +106,16 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
             Route::get(Banner::UPDATE_STATUS[URI].'/{id}/{status}', [BannerController::class,'updateStatus'])->name('status');
             Route::get(Banner::UPDATE_FEATURED[URI].'/{id}/{status}', [BannerController::class,'updateFeatured'])->name('featured');
             Route::post(Banner::SEARCH[URI], [BannerController::class,'getSearchList'])->name('search');
+        });
+          Route::group(['prefix' => 'top-banner', 'as' => 'top-banner.', 'middleware' => ['module:banner']], function () {
+            Route::get(TopBanner::INDEX[URI], [BannerController::class,'top_index'])->name('add-new');
+            Route::post(TopBanner::ADD[URI], [BannerController::class,'top_add'])->name('store');
+            Route::get(TopBanner::UPDATE[URI].'/{id}', [BannerController::class,'getUpdateView'])->name('edit');
+            Route::post(TopBanner::UPDATE[URI].'/{id}', [BannerController::class,'update'])->name('update');
+            Route::delete(TopBanner::DELETE[URI].'/{id}', [BannerController::class,'delete'])->name('delete');
+            Route::get(TopBanner::UPDATE_STATUS[URI].'/{id}/{status}', [BannerController::class,'updateStatus'])->name('status');
+            Route::get(TopBanner::UPDATE_FEATURED[URI].'/{id}/{status}', [BannerController::class,'updateFeatured'])->name('featured');
+            Route::post(TopBanner::SEARCH[URI], [BannerController::class,'getSearchList'])->name('search');
         });
 
         Route::group(['prefix' => 'coupon', 'as' => 'coupon.', 'middleware' => ['module:coupon']], function () {

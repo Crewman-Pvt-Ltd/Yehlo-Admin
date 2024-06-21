@@ -16,6 +16,7 @@ class BannerService
             'type' => $request->banner_type,
             'zone_id' => $request->zone_id,
             'image' => $this->upload('banner/', 'png', $request->file('image')),
+            'pos' => $request->pos ?? null,
             'data' => ($request->banner_type == 'store_wise')?$request->store_id:(($request->banner_type == 'item_wise')?$request->item_id:''),
             'module_id' => Config::get('module.current_module_id'),
             'default_link' => $request->default_link

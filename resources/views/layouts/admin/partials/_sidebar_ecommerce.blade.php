@@ -291,12 +291,19 @@
                 <!-- End Campaign -->
                 <!-- Banner -->
                 @if (\App\CentralLogics\Helpers::module_permission_check('banner'))
+                <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/top-banner*') ? 'active' : '' }}">
+                    <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.top-banner.add-new') }}" title="{{ translate('messages.banners') }}">
+                        <i class="tio-image nav-icon"></i>
+                        <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Top Banner</span>
+                    </a>
+                </li>
                 <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/banner*') ? 'active' : '' }}">
                     <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.banner.add-new') }}" title="{{ translate('messages.banners') }}">
                         <i class="tio-image nav-icon"></i>
                         <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">{{ translate('messages.banners') }}</span>
                     </a>
                 </li>
+
                 <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/promotional-banner*') ? 'active' : '' }}">
                     <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.promotional-banner.add-new') }}" title="{{ translate('messages.other_banners') }}">
                         <i class="tio-image nav-icon"></i>
@@ -373,6 +380,21 @@
                         </li>
                 @endif
                 <!-- End Category -->
+
+
+
+                <!--Brand--->
+
+                <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/brand*') ? 'active' : '' }}">
+                    <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.brand') }}" title="">
+                        <i class="tio-apps nav-icon"></i>
+                        <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                            Brands
+                        </span>
+                    </a>
+                </li>
+
+            <!--End Brand-->
 
                 <!-- Attributes -->
                 @if (\App\CentralLogics\Helpers::module_permission_check('attribute'))

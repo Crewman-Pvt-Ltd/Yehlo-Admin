@@ -39,6 +39,7 @@ class Banner extends Model
         'title',
         'type',
         'image',
+        'pos',
         'status',
         'data',
         'zone_id',
