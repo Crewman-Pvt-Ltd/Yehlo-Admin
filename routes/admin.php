@@ -362,7 +362,25 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
             // admin landing page
 
 
+            // delivery Man routes
 
+
+            Route::get('pages/delivery-landing-page-settings/{tab?}', 'BusinessSettingsController@delivery_landing_page_settings')->name('delivery-landing-page-settings');
+            Route::POST('pages/delivery-landing-page-settings/{tab}', 'BusinessSettingsController@update_delivery_landing_page_settings')->name('delivery-landing-page-settings');
+
+
+            Route::get('del-promotional-status/{id}/{status}', 'BusinessSettingsController@delivery_promotional_status')->name('delivery-promotional-status');
+            Route::get('pages/admin-landing-page-settings/del-promotional-section/edit/{id}', 'BusinessSettingsController@delivery_promotional_edit')->name('delivery-promotional-edit');
+            Route::post('del-promotional-section/update/{id}', 'BusinessSettingsController@delivery_promotional_update')->name('delivery-promotional-update');
+            Route::delete('del-banner/delete/{banner}', 'BusinessSettingsController@delevery_promotional_destroy')->name('delivery-promotional-delete');
+
+
+
+            Route::get('del-faq-status/{id}/{status}', 'BusinessSettingsController@delivery_faq_status')->name('delivery-faq-status');
+            Route::get('pages/admin-landing-page-settings/del-faq-section/edit/{id}', 'BusinessSettingsController@delivery_faq_edit')->name('delivery-faq-edit');
+            Route::post('del-faq-section/update/{id}', 'BusinessSettingsController@delivery_faq_update')->name('delivery-faq-update');
+            Route::delete('del-faq-banner/delete/{banner}', 'BusinessSettingsController@delevery_faq_destroy')->name('delivery-faq-delete');
+            // delivery Man routes
 
             // vendor landing page
 

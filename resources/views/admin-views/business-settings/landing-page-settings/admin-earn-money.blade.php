@@ -11,7 +11,9 @@
                         <img src="{{ asset('public/assets/admin/img/landing.png') }}" class="w--20" alt="">
                     </span>
                     <span>
-                        {{ translate('messages.admin_landing_pages') }}
+                        {{-- {{ translate('messages.admin_landing_pages') }} --}}
+
+                        Vendor Settings
                     </span>
                 </h1>
                 <div class="text--primary-2 py-1 d-flex flex-wrap align-items-center" type="button" data-toggle="modal"
@@ -73,7 +75,7 @@
         @endif
         <div class="tab-content">
             <div class="tab-pane fade show active">
-                <form action="{{ route('admin.business-settings.admin-landing-page-settings', 'earning-title') }}"
+                {{-- <form action="{{ route('admin.business-settings.admin-landing-page-settings', 'earning-title') }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <h5 class="card-title mb-3">
@@ -193,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> --}}
 
                 {{-- yehlo purchase --}}
 

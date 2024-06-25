@@ -26,10 +26,11 @@
 </head>
 <body>
 <div class="success-box">
-    <h4>Payment Successful!</h4>
-    <p>Transaction ID: {{ $transactionId }}</p>
-    <p>Provider Reference ID: {{ $providerReferenceId }}</p>
-    <p>Merchant Order ID: {{ $merchantOrderId }}</p>
+    <h4>PaymentSuccessful!</h4>
+    {{-- {{  dd($payment_details) }} --}}
+    <p>Transaction ID: {{ $payment_details['transactionId']}}</p>
+    <p>Provider Reference ID: {{ $payment_details['providerReferenceId'] }}</p>
+    <p>Merchant Order ID: {{ $payment_details['merchantOrderId'] }}</p>
 </div>
 </body>
 </html>

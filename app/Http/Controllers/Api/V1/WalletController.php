@@ -64,7 +64,7 @@ class WalletController extends Controller
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }
 
-      
+
 
         $digital_payment = Helpers::get_business_settings('digital_payment');
         if($digital_payment['status'] == 0){
@@ -72,16 +72,18 @@ class WalletController extends Controller
         }
 
 
-        
-        // $customer = User::find($request->user()->id);  // issue with user Request type
-        $customer = User::find($request->id);
-        
+
+        $customer = User::find($request->user()->id);  // issue with user Request type
+        // $customer = User::find($request->id);
+
         $wallet = new WalletPayment();
         $wallet->user_id = $customer->id;
         $wallet->amount = $request->amount;
         $wallet->payment_status = 'pending';
         $wallet->payment_method = $request->payment_method;
+
         $wallet->save();
+
 
         $wallet_amount = $request->amount;
 

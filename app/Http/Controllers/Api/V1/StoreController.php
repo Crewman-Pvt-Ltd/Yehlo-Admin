@@ -288,7 +288,7 @@ class StoreController extends Controller
                 'errors' => [
                     ['code' => 'no_nearby_stores', 'message' => 'No nearby stores found within the specified range.']
                 ]
-            ], 404);
+            ], 200);
         }
 
         usort($nearbyStores, function ($a, $b) {

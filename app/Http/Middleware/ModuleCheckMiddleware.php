@@ -18,7 +18,7 @@ class ModuleCheckMiddleware
     {
         // ddd("cekchb");
         $except = [
-            'api/v1/customer*', 'api/v1/banners', 'api/v1/stores/get-stores-range/*', 'api/v1/stores/get-stores-nearby/*' ,  'api/v1/stores/get-stores/*', 'api/v1/coupon/list', 'api/v1/categories', 'api/v1/items/reviews/submit', 'api/v1/delivery-man/reviews/submit'
+            'api/v1/customer*', 'api/v1/banners',  'api/v1/stores/get-stores-range/*', 'api/v1/stores/get-stores-nearby/*' ,  'api/v1/stores/get-stores/*', 'api/v1/coupon/list', 'api/v1/categories', 'api/v1/items/reviews/submit', 'api/v1/delivery-man/reviews/submit'
         ];
 
 

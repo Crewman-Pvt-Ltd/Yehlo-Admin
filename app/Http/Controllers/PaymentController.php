@@ -13,16 +13,45 @@ use App\Library\Payment as PaymentInfo;
 
 class PaymentController extends Controller
 {
-    public function __construct(){
-        if (is_dir('App\Traits') && trait_exists('App\Traits\Payment')) {
+    // public function __construct(){
+    //     if (is_dir('App\Traits') && trait_exists('App\Traits\Payment')) {
+    //         $this->extendWithPaymentGatewayTrait();
+    //     }
+    // }
+
+    // private function extendWithPaymentGatewayTrait()
+    // {
+    //     $extendedControllerClass = $this->generateExtendedControllerClass();
+    //     eval($extendedControllerClass);
+    // }
+
+    // private function generateExtendedControllerClass()
+    // {
+    //     $baseControllerClass = get_class($this);
+    //     $traitClassName = 'App\Traits\Payment';
+
+    //     $extendedControllerClass = "
+    //         class ExtendedController extends $baseControllerClass {
+    //             use $traitClassName;
+    //         }
+    //     ";
+
+    //     return $extendedControllerClass;
+    // }
+
+    public function __construct()
+    {
+        if (is_dir(app_path('Traits')) && trait_exists('App\Traits\Payment')) {
             $this->extendWithPaymentGatewayTrait();
         }
     }
 
     private function extendWithPaymentGatewayTrait()
     {
-        $extendedControllerClass = $this->generateExtendedControllerClass();
-        eval($extendedControllerClass);
+        if (!class_exists('ExtendedController')) {
+            $extendedControllerClass = $this->generateExtendedControllerClass();
+            eval($extendedControllerClass);
+        }
     }
 
     private function generateExtendedControllerClass()
@@ -49,22 +78,21 @@ class PaymentController extends Controller
         session()->put('order_id', $request->order_id);
 
         $order = Order::where(['id' => $request->order_id, 'user_id' => $request['customer_id']])->first();
-        if($order->is_guest){
-            $customer_details = json_decode($order['delivery_address'],true);
-        }else{
+        if ($order->is_guest) {
+            $customer_details = json_decode($order['delivery_address'], true);
+        } else {
             $customer = User::find($request['customer_id']);
         }
 
         //guest user check
         if ($order->is_guest) {
-            $address = json_decode($order['delivery_address'],true);
+            $address = json_decode($order['delivery_address'], true);
             $customer = collect([
                 'first_name' => $address['contact_person_name'],
                 'last_name' => '',
                 'phone' => $address['contact_person_number'],
                 'email' => $address['contact_person_email'],
             ]);
-
         } else {
             $customer = User::find($request['customer_id']);
             $customer = collect([
@@ -75,7 +103,7 @@ class PaymentController extends Controller
             ]);
         }
 
-        if(!$order){
+        if (!$order) {
             return response()->json(['errors' => ['code' => 'order-payment', 'message' => 'Data not found']], 403);
         }
 
@@ -97,13 +125,13 @@ class PaymentController extends Controller
             return response()->json(['errors' => ['message' => 'Payment not found']], 403);
         }
 
-        $payer = new Payer($customer['first_name'].' '.$customer['last_name'], $customer['email'], $customer['phone'], '');
+        $payer = new Payer($customer['first_name'] . ' ' . $customer['last_name'], $customer['email'], $customer['phone'], '');
 
-        $currency=BusinessSetting::where(['key'=>'currency'])->first()->value;
+        $currency = BusinessSetting::where(['key' => 'currency'])->first()->value;
 
         $additional_data = [
-            'business_name' => BusinessSetting::where(['key'=>'business_name'])->first()?->value,
-            'business_logo' => asset('storage/app/public/business') . '/' .BusinessSetting::where(['key' => 'logo'])->first()?->value
+            'business_name' => BusinessSetting::where(['key' => 'business_name'])->first()?->value,
+            'business_logo' => asset('storage/app/public/business') . '/' . BusinessSetting::where(['key' => 'logo'])->first()?->value
         ];
 
         $payment_info = new PaymentInfo(
@@ -116,24 +144,23 @@ class PaymentController extends Controller
             receiver_id: '100',
             additional_data: $additional_data,
             payment_amount: $order_amount,
-            external_redirect_link: $request->has('callback')?$request['callback']:session('callback'),
+            external_redirect_link: $request->has('callback') ? $request['callback'] : session('callback'),
             attribute: 'order',
             attribute_id: $order->id
         );
 
 
 
-        $receiver_info = new Receiver('receiver_name','example.png');
+        $receiver_info = new Receiver('receiver_name', 'example.png');
 
         $redirect_link = Payment::generate_link($payer, $payment_info, $receiver_info);
 
         return redirect($redirect_link);
-
     }
 
     public function success()
     {
-        $order = Order::where(['id' => session('order_id'), 'user_id'=>session('customer_id')])->first();
+        $order = Order::where(['id' => session('order_id'), 'user_id' => session('customer_id')])->first();
         if (isset($order) && $order->callback != null) {
             return redirect($order->callback . '&status=success');
         }
@@ -142,7 +169,7 @@ class PaymentController extends Controller
 
     public function fail()
     {
-        $order = Order::where(['id' => session('order_id'), 'user_id'=>session('customer_id')])->first();
+        $order = Order::where(['id' => session('order_id'), 'user_id' => session('customer_id')])->first();
         if (isset($order) && $order->callback != null) {
             return redirect($order->callback . '&status=fail');
         }
@@ -150,11 +177,10 @@ class PaymentController extends Controller
     }
     public function cancel(Request $request)
     {
-        $order = Order::where(['id' => session('order_id'), 'user_id'=>session('customer_id')])->first();
+        $order = Order::where(['id' => session('order_id'), 'user_id' => session('customer_id')])->first();
         if (isset($order) && $order->callback != null) {
             return redirect($order->callback . '&status=fail');
         }
         return response()->json(['message' => 'Payment failed'], 403);
     }
-
 }
