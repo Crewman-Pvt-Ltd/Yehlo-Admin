@@ -275,6 +275,9 @@ class ItemController extends Controller
         $food->images = $images;
         $food->stock = $request->current_stock??0;
         $module_type = Helpers::get_store_data()->module->module_type;
+        if ($request->has('brand_id')){
+            $food->brand_id = $request->brand_id;
+        }
         if($module_type == 'grocery'){
             $food->organic = $request->organic ?? 0;
         }
