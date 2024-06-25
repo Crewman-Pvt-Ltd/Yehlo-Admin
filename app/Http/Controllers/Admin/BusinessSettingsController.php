@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\Setting;
+use App\Models\DeliveryPromotion;
+use App\Models\DeliveryFaq;
 use App\Models\Currency;
 use App\Traits\Processor;
 use App\Models\DataSetting;
@@ -27,6 +29,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Models\AdminPromotionalBanner;
+use App\Models\DeliveryHistory;
 use App\Models\FlutterSpecialCriteria;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
@@ -1888,9 +1891,24 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.privacy-policy', compact('privacy_policy'));
     }
 
+
     public function privacy_policy_update(Request $request)
     {
         $this->update_data($request, 'privacy_policy');
+        Toastr::success(translate('messages.privacy_policy_updated'));
+        return back();
+    }
+
+    public function delivery_privacy_policy()
+    {
+        $delivery_privacy_policy = DataSetting::withoutGlobalScope('translate')->where('type', 'admin_landing_page')->where('key', 'delivery_privacy_policy')->first();
+        return view('admin-views.business-settings.deliveryman-privacy-policy', compact('delivery_privacy_policy'));
+    }
+
+    public function delivery_privacy_policy_update(Request $request)
+    {
+        // dd($request);
+        $this->update_data($request, 'delivery_privacy_policy');
         Toastr::success(translate('messages.privacy_policy_updated'));
         return back();
     }
@@ -2551,12 +2569,161 @@ class BusinessSettingsController extends Controller
             return view('admin-views.business-settings.landing-page-settings.admin-landing-testimonial');
         } else if ($tab == 'contact-us') {
             return view('admin-views.business-settings.landing-page-settings.admin-landing-contact');
-        }
-        else if ($tab == 'delivery-man-setting') {
+        } else if ($tab == 'delivery-man-setting') {
             return view('admin-views.business-settings.landing-page-settings.admin-delivery-man-setting');
-        }
-        else if ($tab == 'background-color') {
+        } else if ($tab == 'background-color') {
             return view('admin-views.business-settings.landing-page-settings.admin-landing-background-color');
+        }
+    }
+
+
+    public function delivery_landing_page_settings($tab)
+    {
+        if ($tab == 'fixed-data') {
+            return view('admin-views.business-settings.landing-page-settings.delivery-fixed-data');
+        } else if ($tab == 'promotional-section') {
+            return view('admin-views.business-settings.landing-page-settings.delivery-promotional-section');
+        }
+        else if ($tab == 'faq') {
+            return view('admin-views.business-settings.landing-page-settings.delivery-faq');
+        }
+    }
+
+
+
+    public function update_delivery_landing_page_settings(Request $request, $tab)
+    {
+        if ($tab == 'fixed-data') {
+            $delivery_heading = DataSetting::where('type', 'delivery_landing_page')->where('key', 'delivery_heading')->first();
+            if ($delivery_heading == null) {
+                $delivery_heading = new DataSetting();
+            }
+
+            $delivery_heading->key = 'delivery_heading';
+            $delivery_heading->type = 'delivery_landing_page';
+            $delivery_heading->value = $request->delivery_heading[0];
+            $delivery_heading->save();
+
+            $delivery_sub_heading = DataSetting::where('type', 'delivery_landing_page')->where('key', 'delivery_sub_heading')->first();
+            if ($delivery_sub_heading == null) {
+                $delivery_sub_heading = new DataSetting();
+            }
+
+            $delivery_sub_heading->key = 'delivery_sub_heading';
+            $delivery_sub_heading->type = 'delivery_landing_page';
+            $delivery_sub_heading->value = $request->delivery_sub_heading[0];
+            $delivery_sub_heading->save();
+
+
+
+
+
+            $delivery_head_image = DataSetting::where('type', 'delivery_landing_page')->where('key', 'delivery_head_image')->first();
+            if ($delivery_head_image == null) {
+                $delivery_head_image = new DataSetting();
+            }
+            $delivery_head_image->key = 'delivery_head_image';
+            $delivery_head_image->type = 'delivery_landing_page';
+            $delivery_head_image->value = $request->has('delivery_head_image') ? Helpers::update('deliveryman/', $delivery_head_image->value, 'png', $request->file('delivery_head_image')) : $delivery_head_image->value;
+            $delivery_head_image->save();
+
+            Toastr::success("Delivery Home Setting update");
+            return back();
+        } else if ($tab == 'footer-fixed-data') {
+
+
+
+            $delivery_footer_heading = DataSetting::where('type', 'delivery_landing_page')->where('key', 'delivery_footer_heading')->first();
+            if ($delivery_footer_heading == null) {
+                $delivery_footer_heading = new DataSetting();
+            }
+
+            $delivery_footer_heading->key = 'delivery_footer_heading';
+            $delivery_footer_heading->type = 'delivery_landing_page';
+            $delivery_footer_heading->value = $request->delivery_footer_heading[0];
+            $delivery_footer_heading->save();
+
+            $delivery_footer_sub_heading = DataSetting::where('type', 'delivery_landing_page')->where('key', 'delivery_footer_sub_heading')->first();
+            if ($delivery_footer_sub_heading == null) {
+                $delivery_footer_sub_heading = new DataSetting();
+            }
+
+            $delivery_footer_sub_heading->key = 'delivery_footer_sub_heading';
+            $delivery_footer_sub_heading->type = 'delivery_landing_page';
+            $delivery_footer_sub_heading->value = $request->delivery_footer_sub_heading[0];
+            $delivery_footer_sub_heading->save();
+
+
+            $sub_head_2 = DataSetting::where('type', 'delivery_landing_page')->where('key', 'sub_head_2')->first();
+            if ($sub_head_2 == null) {
+                $sub_head_2 = new DataSetting();
+            }
+
+            $sub_head_2->key = 'sub_head_2';
+            $sub_head_2->type = 'delivery_landing_page';
+            $sub_head_2->value = $request->sub_head_2[0];
+            $sub_head_2->save();
+
+
+            $download_link_button = DataSetting::where('type', 'delivery_landing_page')->where('key', 'download_link_button')->first();
+            if ($download_link_button == null) {
+                $download_link_button = new DataSetting();
+            }
+
+            $download_link_button->key = 'download_link_button';
+            $download_link_button->type = 'delivery_landing_page';
+            $download_link_button->value = $request->download_link_button[0];
+            $download_link_button->save();
+
+
+
+            $delivery_footer_image = DataSetting::where('type', 'delivery_landing_page')->where('key', 'delivery_footer_image')->first();
+            if ($delivery_footer_image == null) {
+                $delivery_footer_image = new DataSetting();
+            }
+            $delivery_footer_image->key = 'delivery_footer_image';
+            $delivery_footer_image->type = 'delivery_landing_page';
+            $delivery_footer_image->value = $request->has('delivery_footer_image') ? Helpers::update('deliveryman/', $delivery_footer_image->value, 'png', $request->file('delivery_footer_image')) : $delivery_footer_image->value;
+            $delivery_footer_image->save();
+
+            Toastr::success("Delivery Footer Setting update");
+            return back();
+        } else if ($tab == 'promotional-tab') {
+            $request->validate([
+                'title' => 'required',
+                'sub_title' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Adjust the image validation as needed
+            ]);
+
+            // Check if a DeliveryPromotion record with main_heading exists
+            $promotion_main_heading = DeliveryPromotion::whereNotNull('main_heading')->first();
+            if ($promotion_main_heading == null) {
+                // If no record exists, create a new one
+                $promotion_main_heading = new DeliveryPromotion();
+                $promotion_main_heading->main_heading = $request->main_title[0];
+                $promotion_main_heading->title = $request->title[0];
+                $promotion_main_heading->subtitle = $request->sub_title[0];
+                $promotion_main_heading->image = Helpers::upload('delivery_promotion/', 'png', $request->file('image'));
+                $promotion_main_heading->save();
+            } else if ($promotion_main_heading != null) {
+                $new_promotion = new DeliveryPromotion();
+                $new_promotion->title = $request->title[0];
+                $new_promotion->subtitle = $request->sub_title[0];
+                $new_promotion->image = Helpers::upload('delivery_promotion/', 'png', $request->file('image'));
+                $new_promotion->save();
+            }
+            return back();
+        }
+        else if($tab == 'faq'){
+            $request->validate([
+                'questions' => 'required',
+                'anwser' => 'required',
+            ]);
+            $faq = new DeliveryFaq();
+            $faq->question = $request->questions[0];
+            $faq->anwser = $request->anwser[0];
+            $faq->save();
+            return back();
         }
     }
 
@@ -3261,9 +3428,7 @@ class BusinessSettingsController extends Controller
             }
 
             Toastr::success(translate('messages.earning_section_updated'));
-        }
-
-        elseif ($tab == 'seller-purchase') {
+        } elseif ($tab == 'seller-purchase') {
 
             $seller_purchase = DataSetting::where('type', 'admin_landing_page')->where('key', 'seller_purchase')->first();
             if ($seller_purchase == null) {
@@ -3342,8 +3507,7 @@ class BusinessSettingsController extends Controller
             // }
 
             Toastr::success('Purchase Section Update');
-        }
-        elseif ($tab == 'seller-vendor') {
+        } elseif ($tab == 'seller-vendor') {
 
             // dd($request);
 
@@ -3405,10 +3569,7 @@ class BusinessSettingsController extends Controller
             $home_seller_image->save();
 
             Toastr::success("Home Setting update");
-        }
-
-
-        elseif ($tab == 'seller-vendor-footer') {
+        } elseif ($tab == 'seller-vendor-footer') {
 
             //  dd($request);
 
@@ -3470,11 +3631,7 @@ class BusinessSettingsController extends Controller
             $footer_seller_image->save();
 
             Toastr::success("Footer Setting update");
-        }
-
-
-
-        elseif ($tab == 'deliveryman-header') {
+        } elseif ($tab == 'deliveryman-header') {
 
             //  dd($request);
 
@@ -3514,9 +3671,7 @@ class BusinessSettingsController extends Controller
             $home_delivery_image->save();
 
             Toastr::success("Delivery Home Setting update");
-        }
-
-        elseif ($tab == 'delivery-footer') {
+        } elseif ($tab == 'delivery-footer') {
 
             // dd($request);
 
@@ -3578,8 +3733,7 @@ class BusinessSettingsController extends Controller
             $footer_delivery_image->save();
 
             Toastr::success("Home Setting update");
-        }
-        elseif ($tab == 'earning-seller-link') {
+        } elseif ($tab == 'earning-seller-link') {
             $earning_seller_image = DataSetting::where('type', 'admin_landing_page')->where('key', 'earning_seller_image')->first();
             if ($earning_seller_image == null) {
                 $earning_seller_image = new DataSetting();
@@ -5054,11 +5208,126 @@ class BusinessSettingsController extends Controller
         return back();
     }
 
+
+    public function delivery_faq_status(Request $request)
+    {
+        if (env('APP_MODE') == 'demo' && $request->id == 1) {
+            Toastr::warning('Sorry!You can not inactive this banner!');
+            return back();
+        }
+        $banner = DeliveryFaq::findOrFail($request->id);
+        $banner->status = $request->status;
+        $banner->save();
+        Toastr::success('Status Updated');
+        return back();
+    }
+
+    public function delivery_faq_edit($id)
+    {
+        $delivery_faq = DeliveryFaq::findOrFail($id);
+        return view('admin-views.business-settings.landing-page-settings.delivery-faq-section-edit', compact('delivery_faq'));
+    }
+
+    public function delivery_faq_update(Request $request , $id){
+        $request->validate([
+            'question' => 'required|max:100',
+            'anwser' => 'required'
+        ]);
+        $delivery_faq = DeliveryFaq::find($id);
+        $delivery_faq->question = $request->question[0];
+        $delivery_faq->anwser = $request->anwser[0];
+        $delivery_faq->save();
+
+
+
+        Toastr::success(translate('Promotional Updated'));
+        return back();
+    }
+
+    public function delevery_faq_destroy($id)
+    {
+        if (env('APP_MODE') == 'demo' && $id == 1) {
+            Toastr::warning(translate('messages.you_can_not_delete_this_banner_please_add_a_new_banner_to_delete'));
+            return back();
+        }
+
+        $delivery = DeliveryFaq::findOrFail($id);
+        $delivery->delete();
+
+        Toastr::success('Deleted Successfully');
+        return back();
+    }
+
+    public function delivery_promotional_status(Request $request)
+    {
+        if (env('APP_MODE') == 'demo' && $request->id == 1) {
+            Toastr::warning('Sorry!You can not inactive this banner!');
+            return back();
+        }
+        $banner = DeliveryPromotion::findOrFail($request->id);
+        $banner->status = $request->status;
+        $banner->save();
+        Toastr::success('Status Updated');
+        return back();
+    }
+
+    public function delivery_promotional_edit($id)
+    {
+        $delivery = DeliveryPromotion::withoutGlobalScope('translate')->findOrFail($id);
+        $delivery_heading = DeliveryPromotion::whereNotNull('main_heading')->first();
+
+
+        return view('admin-views.business-settings.landing-page-settings.delivery-promotional-section-edit', compact('delivery', 'delivery_heading'));
+    }
+
+    public function delivery_promotional_update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|max:100',
+            'sub_title' => 'required'
+        ]);
+
+        if ($request->title[array_search('default', $request->lang)] == '') {
+            Toastr::error(translate('default_data_is_required'));
+            return back();
+        }
+        $delivery_heading = DeliveryPromotion::whereNotNull('main_heading')->first();
+        $delivery = DeliveryPromotion::find($id);
+        $delivery_heading->main_heading = $request->main_title[0];
+        $delivery->title = $request->title[0];
+        $delivery->subtitle = $request->sub_title[0];
+        $delivery->image = $request->has('image') ? Helpers::update('delivery_promotion/', $delivery->image, 'png', $request->file('image')) : $delivery->image;
+        $delivery->save();
+        $delivery_heading->save();
+
+
+        Toastr::success(translate('Promotional Updated'));
+        return back();
+    }
+
+    public function delevery_promotional_destroy($id)
+    {
+        if (env('APP_MODE') == 'demo' && $id == 1) {
+            Toastr::warning(translate('messages.you_can_not_delete_this_banner_please_add_a_new_banner_to_delete'));
+            return back();
+        }
+
+        $delivery = DeliveryPromotion::findOrFail($id);
+        $delivery->delete();
+
+        Toastr::success('Deleted Successfully');
+        return back();
+    }
+
+
     public function promotional_edit($id)
     {
         $banner = AdminPromotionalBanner::withoutGlobalScope('translate')->findOrFail($id);
         return view('admin-views.business-settings.landing-page-settings.admin-promotional-section-edit', compact('banner'));
     }
+
+
+
     public function promotional_update(Request $request, $id)
     {
         $request->validate([

@@ -243,6 +243,33 @@ class HomeController extends Controller
         }
     }
 
+    public function delivery_privacy_policy(Request $request)
+    {
+        $data = self::get_settings('delivery_privacy_policy');
+        if ($request->expectsJson()) {
+            if($request->hasHeader('X-localization')){
+                $current_language = $request->header('X-localization');
+                $data = self::get_settings_localization('delivery_privacy_policy',$current_language);
+                return response()->json($data);
+            }
+            return response()->json($data);
+        }
+        $config = Helpers::get_business_settings('landing_page');
+        $landing_integration_type = Helpers::get_business_data('landing_integration_type');
+        $redirect_url = Helpers::get_business_data('landing_page_custom_url');
+
+        // dd($data);
+        if(isset($config) && $config){
+            return view('deliveryman-privacy-policy',compact('data'));
+        }elseif($landing_integration_type == 'file_upload' && File::exists('resources/views/layouts/landing/custom/index.blade.php')){
+            return view('layouts.landing.custom.index');
+        }elseif($landing_integration_type == 'url'){
+            return redirect($redirect_url);
+        }else{
+            abort(404);
+        }
+    }
+
     public function refund_policy(Request $request)
     {
         $data = self::get_settings('refund_policy');

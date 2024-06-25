@@ -994,7 +994,7 @@
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
-                    $('#loading').show();
+                    // $('#loading').show();
                 },
                 success: function(data) {
                     $('#loading').hide();

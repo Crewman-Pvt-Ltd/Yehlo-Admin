@@ -80,6 +80,7 @@ class LoginController extends Controller
         App::setLocale($locale);
         $custome_recaptcha = new CaptchaBuilder;
         $custome_recaptcha->build();
+
         Session::put('six_captcha', $custome_recaptcha->getPhrase());
 
         $email =  null;

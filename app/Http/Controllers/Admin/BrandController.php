@@ -260,7 +260,3 @@ public function brandDelete($id)
 
 
 }
-
-    
-
-
