@@ -293,6 +293,33 @@
 
 
 
+                        <li
+                            class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages*') ? 'active' : '' }}">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:"
+                                title="{{ translate('messages.pages_setup') }}">
+                                <i class="tio-pages nav-icon"></i>
+                                <span
+                                    class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">{{ translate('messages.pages_&_social_media') }}</span>
+                            </a>
+                            <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
+                                style="display:{{ Request::is('admin/business-settings/pages*') ? 'block' : 'none' }}">
+
+                                <li
+                                    class="navbar-vertical-aside-has-menu {{ Request::is('admin/business-settings/pages/social-media') ? 'active' : '' }}">
+                                    {{-- <a class="nav-link "
+                                        href="{{ route('admin.test') }}"
+                                        title="{{ translate('messages.Social Media') }}">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">{{ translate('messages.Social Media') }}</span>
+                                    </a> --}}
+                                </li>
+
+
+
+
+
+                            </ul>
+                        </li>
 
                         {{--  --}}
 
