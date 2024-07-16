@@ -194,7 +194,7 @@
                         <tbody id="table-div">
 
                             @foreach ($categories as $key => $category)
-                            {{ dd($category) }}
+                            {{-- {{ dd($category) }} --}}
                                 <tr>
                                     <td>{{ $key + $categories->firstItem() }}</td>
                                     <td>{{ $category->id }}</td>

@@ -5687,12 +5687,16 @@ class BusinessSettingsController extends Controller
 
         if ($tab == 'download-app-section') {
 
+            // dd($request);
+
             $request->validate([
                 'download_user_app_title.0' => 'required',
                 'download_user_app_sub_title.0' => 'required',
+                'banner_image_download' => 'file|max:2048', // 2048 KB = 2 MB
             ], [
                 'download_user_app_title.0.required' => translate('messages.Default_title_is_required'),
                 'download_user_app_sub_title.0.required' => translate('messages.Default_subtitle_is_required'),
+                'banner_image_download.max' => translate('messages.Banner_image_max_size_is_2MB'),
             ]);
 
             $download_user_app_title = DataSetting::where('type', 'react_landing_page')->where('key', 'download_user_app_title')->first();
@@ -5716,14 +5720,23 @@ class BusinessSettingsController extends Controller
             $download_user_app_sub_title->value = $request->download_user_app_sub_title[array_search('default', $request->lang)];
             $download_user_app_sub_title->save();
 
-            $download_user_app_image = DataSetting::where('type', 'react_landing_page')->where('key', 'download_user_app_image')->first();
-            if ($download_user_app_image == null) {
-                $download_user_app_image = new DataSetting();
+            // $download_user_app_image = DataSetting::where('type', 'react_landing_page')->where('key', 'download_user_app_image')->first();
+            // if ($download_user_app_image == null) {
+            //     $download_user_app_image = new DataSetting();
+            // }
+            // $download_user_app_image->key = 'download_user_app_image';
+            // $download_user_app_image->type = 'react_landing_page';
+            // $download_user_app_image->value = $request->has('image') ? Helpers::update('download_user_app_image/', $download_user_app_image->value, 'png', $request->file('image')) : $download_user_app_image->value;
+            // $download_user_app_image->save();
+
+            $banner_image_download = DataSetting::where('type', 'react_landing_page')->where('key', 'banner_image_download')->first();
+            if ($banner_image_download == null) {
+                $banner_image_download = new DataSetting();
             }
-            $download_user_app_image->key = 'download_user_app_image';
-            $download_user_app_image->type = 'react_landing_page';
-            $download_user_app_image->value = $request->has('image') ? Helpers::update('download_user_app_image/', $download_user_app_image->value, 'png', $request->file('image')) : $download_user_app_image->value;
-            $download_user_app_image->save();
+            $banner_image_download->key = 'banner_image_download';
+            $banner_image_download->type = 'react_landing_page';
+            $banner_image_download->value = $request->has('banner_image_download') ? Helpers::update('promotion_banner/', $banner_image_download->value, 'png', $request->file('banner_image_download')) : $banner_image_download->value;
+            $banner_image_download->save();
 
             $data = [];
             $default_lang = str_replace('_', '-', app()->getLocale());
@@ -6458,6 +6471,17 @@ class BusinessSettingsController extends Controller
             $company_description->type = 'react_landing_page';
             $company_description->value = $request->company_description[array_search('default', $request->lang)];
             $company_description->save();
+
+
+
+           $banner_image_company = DataSetting::where('type', 'react_landing_page')->where('key', 'banner_image_company')->first();
+            if ($banner_image_company == null) {
+                $banner_image_company = new DataSetting();
+            }
+            $banner_image_company->key = 'banner_image_company';
+            $banner_image_company->type = 'react_landing_page';
+            $banner_image_company->value = $request->has('banner_image_company') ? Helpers::update('promotional_banner/', $banner_image_company->value, 'png', $request->file('banner_image_company')) : $banner_image_company->value;
+            $banner_image_company->save();
 
             $company_button_name = DataSetting::where('type', 'react_landing_page')->where('key', 'company_button_name')->first();
             if ($company_button_name == null) {

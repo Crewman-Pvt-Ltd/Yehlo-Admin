@@ -22,7 +22,7 @@
         h1, p {
             text-align: center;
         }
-    </style>
+    </style>https://github.com/Crewman-Pvt-Ltd/Yehlo-Admin/pull/7/conflict?name=resources%252Fviews%252Fphonepe-success.blade.php&base_oid=99484857d5797d924c3897debbc208bc2bb5211b&head_oid=7567318c68af962a6a64250c3f5b7db204a0931a
 </head>
 <body>
 <div class="success-box">

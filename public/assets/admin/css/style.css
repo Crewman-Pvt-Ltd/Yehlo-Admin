@@ -7301,14 +7301,14 @@ ul.delivery--information-single li:not(:last-child) {
 }
 
 .__navbar-nav {
-    -moz-column-gap: 38px;
-    column-gap: 38px;
+    -moz-column-gap: 0;
+    column-gap: 0;
 }
 
 @media (max-width: 1499px) {
     .__navbar-nav {
-        -moz-column-gap: 28px;
-        column-gap: 28px;
+        -moz-column-gap: 0;
+        column-gap: 0;
     }
 }
 @media (max-width: 1399px) {
@@ -7319,14 +7319,14 @@ ul.delivery--information-single li:not(:last-child) {
 }
 @media (max-width: 991px) {
     .__navbar-nav {
-        -moz-column-gap: 25px;
-        column-gap: 25px;
+        -moz-column-gap: 0;
+        column-gap: 0;
     }
 }
 @media (max-width: 575px) {
     .__navbar-nav {
-        -moz-column-gap: 10px;
-        column-gap: 10px;
+        -moz-column-gap: 0px;
+        column-gap: 0px;
         -webkit-padding-start: 8px;
         padding-inline-start: 8px;
     }

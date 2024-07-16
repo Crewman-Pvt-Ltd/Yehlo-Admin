@@ -890,25 +890,20 @@ class ItemController extends Controller
         // Handle list type 'store'
         if ($list_type === 'store') {
             // Only proceed if 'name' is provided
-            if (!$name) {
-                return response()->json(['error' => 'Name parameter is required for store list type.'], 403);
-            }
 
-            $stores = Store::where('name', 'like', "%{$name}%")->paginate($limit, ['*'], 'page', $offset);
+            // if (!$name) {
+            //     return response()->json(['error' => 'Name parameter is required for store list type.'], 403);
+            // }
 
-            return response()->json([
-                'total_size' => $stores->total(),
-                'limit' => $limit,
-                'offset' => $offset,
-                'stores' => $stores
-            ], 200);
-        }
+            $stores = Store::where('module_id', $module_id)->paginate($limit, ['*'], 'page', $offset);
+
+      
+
 
         // Default list type 'item' or 'product'
         $results = $itemQuery->paginate($limit, ['*'], 'page', $offset);
 
         $currentDateTime = now();
-        $flashSaleItems = DB::table('flash_sale_items')
             ->join('flash_sales', 'flash_sale_items.flash_sale_id', '=', 'flash_sales.id')
             ->where('flash_sales.start_date', '<=', $currentDateTime)
             ->where('flash_sales.end_date', '>=', $currentDateTime)

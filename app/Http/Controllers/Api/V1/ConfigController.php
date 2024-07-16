@@ -125,6 +125,9 @@ class ConfigController extends Controller
         );
 
 
+        // dd(config('module.grocery'));
+
+
         return response()->json([
             'business_name' => $settings['business_name'],
             // 'business_open_time' => $settings['business_open_time'],
@@ -549,10 +552,12 @@ class ConfigController extends Controller
                 'company_title' => (isset($settings['company_title']))  ? $settings['company_title'] : null,
                 'company_sub_title' => (isset($settings['company_sub_title']))  ? $settings['company_sub_title'] : null,
                 'company_description' => (isset($settings['company_description']))  ? $settings['company_description'] : null,
+                'banner_image_company' => (isset($settings['banner_image_company']))  ? $settings['banner_image_company'] : null,
                 'company_button_name' => (isset($settings['company_button_name']))  ? $settings['company_button_name'] : null,
                 'company_button_url' => (isset($settings['company_button_url']))  ? $settings['company_button_url'] : null,
                 'download_user_app_title' => (isset($settings['download_user_app_title']))  ? $settings['download_user_app_title'] : null,
                 'download_user_app_sub_title' => (isset($settings['download_user_app_sub_title']))  ? $settings['download_user_app_sub_title'] : null,
+                'banner_image_download' => (isset($settings['banner_image_download']))  ? $settings['banner_image_download'] : null,
                 'earning_title' => (isset($settings['earning_title']))  ? $settings['earning_title'] : null,
                 'earning_sub_title' => (isset($settings['earning_sub_title']))  ? $settings['earning_sub_title'] : null,
                 'earning_seller_title' => (isset($settings['earning_seller_title']))  ? $settings['earning_seller_title'] : null,
@@ -673,7 +678,7 @@ class ConfigController extends Controller
                 'seller_description' => (isset($settings['seller_description']))  ? $settings['seller_description'] : null,
 
 
-
+                'feature_title' => (isset($settings['feature_title']))  ? $settings['feature_title'] : null,
 
                 'admin_features' => (isset($admin_features))  ? $admin_features : null,
                 'promotion_banners' => (isset($promotion_banners))  ? $promotion_banners : null,

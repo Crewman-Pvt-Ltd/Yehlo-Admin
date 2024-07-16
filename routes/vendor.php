@@ -1,25 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\BrandController;
 
 
 Route::group(['namespace' => 'Vendor', 'as' => 'vendor.'], function () {
 
     Route::group(['middleware' => ['vendor']], function () {
-        Route::get('brand', [BrandController::class, 'index'])->name('brand');
-    
-        Route::post('brand-store/{id?}', [BrandController::class, 'store'])->name('brand-store');
-     
-        Route::get('brand/{id}/edit', [BrandController::class, 'edit'])->name('brand-edit');
-        Route::delete('/brand/{id}', [BrandController::class, 'destroy'])->name('brand-destroy');
-
-       
-
-
-
-
-        
         Route::get('lang/{locale}', 'LanguageController@lang')->name('lang');
         Route::get('/', 'DashboardController@dashboard')->name('dashboard');
         Route::get('/get-store-data', 'DashboardController@store_data')->name('get-store-data');

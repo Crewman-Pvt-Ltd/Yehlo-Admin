@@ -47,7 +47,6 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name.0' => 'required',
             'name.*' => 'max:191',
@@ -63,7 +62,6 @@ class ItemController extends Controller
             'description.*' => 'max:1000',
             'name.0' => 'required',
             'description.0' => 'required',
-       
         ], [
             'description.*.max' => translate('messages.description_length_warning'),
             'name.0.required' => translate('messages.item_name_required'),
@@ -260,9 +258,6 @@ class ItemController extends Controller
         $item->store_id = $request->store_id;
         $item->maximum_cart_quantity = $request->maximum_cart_quantity;
         $item->veg = $request->veg;
-        if ($request->has('brand_id')){
-            $item->brand_id = $request->brand_id;
-        }
         $item->module_id = Config::get('module.current_module_id');
         $module_type = Config::get('module.current_module_type');
         if ($module_type == 'grocery') {
@@ -275,15 +270,15 @@ class ItemController extends Controller
         $store_details = Store::where("id", $request->store_id)->first();
 
 
-        if ($store_details->phone) {
-            $paid_plan = PlanPurchaseRequest::where("mobile", $store_details->phone)->first();
+        if ($store_details && $store_details->phone) {
 
+            $paid_plan = PlanPurchaseRequest::where("mobile", $store_details->phone)->first();
             if (!$paid_plan->is_purchased) {
+
 
                 $validator->getMessageBag()->add('name', "Plan is required.");
                 return response()->json(['errors' => Helpers::error_processor($validator)]);
             } else {
-
                 if (!empty(json_decode($item->choice_options, true))) {
 
                     // dd("product Variation");
@@ -317,15 +312,6 @@ class ItemController extends Controller
                     // dd("Product Only");
                     $item->save();
                     $item->tags()->sync($tag_ids);
-                    if ($module_type == 'pharmacy') {
-                        $item_details = new PharmacyItemDetails();
-                        $item_details->item_id = $item->id;
-                        $item_details->common_condition_id = $request->condition_id;
-                        $item_details->is_basic = $request->basic ?? 0;
-                        $item_details->save();
-                    }
-
-                    Helpers::add_or_update_translations(request: $request, key_data: 'name', name_field: 'name', model_name: 'Item', data_id: $item->id, data_value: $item->name);
                     Helpers::add_or_update_translations(request: $request, key_data: 'description', name_field: 'description', model_name: 'Item', data_id: $item->id, data_value: $item->description);
 
                     return response()->json(['success' => translate('messages.product_added_successfully')], 200);

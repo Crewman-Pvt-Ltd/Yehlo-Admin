@@ -54,10 +54,10 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://192.168.1.86:8080/mobileapp/'),
+    'url' => env('APP_URL', 'https://localhost/git_yehlo'),
 
     // 'asset_url' => env('ASSET_URL', null),
-    'asset_url' =>   env('http://192.168.1.86:8080/mobileapp/public', null),
+    'asset_url' =>   env('https://localhost/git_yehlo/public', null),
 
     /*
     |--------------------------------------------------------------------------

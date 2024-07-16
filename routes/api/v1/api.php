@@ -4,7 +4,6 @@ use App\WebSockets\Handler\DMLocationSocketHandler;
 use Illuminate\Support\Facades\Route;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 use App\Http\Controllers\Api\V1\StoreReferralController;
-use App\Http\Controllers\Admin\BrandController;
 
 
 /*
@@ -18,9 +17,6 @@ use App\Http\Controllers\Admin\BrandController;
 */
 
 Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function () {
-   
-    Route::get('/getallbrands', [BrandController::class, 'getBrand']);
-
 
     Route::post('referrals', 'StoreReferralController@create');
     Route::get('zone/list', 'ZoneController@get_zones');
@@ -71,6 +67,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function
     Route::get('landing-page', 'ConfigController@landing_page');
     Route::get('react-landing-page', 'ConfigController@react_landing_page');
     Route::get('admin-landing-page', 'ConfigController@admin_landing_page');
+    Route::get('deliveryman-landing-page', 'ConfigController@delivery_landing_page');
     Route::get('flutter-landing-page', 'ConfigController@flutter_landing_page');
 
     Route::group(['prefix' => 'delivery-man'], function () {
@@ -392,7 +389,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function
             Route::get('get-stores/{filter_data}', 'StoreController@get_stores');
             Route::get('get-stores-range/{filter_data}', 'StoreController@get_stores_by_range');
             Route::get('get-stores-nearby/{filter_data}', 'StoreController@get_stores_by_nearby');
-            Route::get('latest', 'get_new_products@get_latest_stores');
+            Route::get('latest', 'StoreController@get_latest_stores');
             Route::get('popular', 'StoreController@get_popular_stores');
             Route::get('recommended', 'StoreController@get_recommended_stores');
             Route::get('discounted', 'StoreController@get_discounted_stores');
@@ -407,6 +404,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware' => 'localization'], function
         Route::group(['prefix' => 'banners'], function () {
             Route::get('/', 'BannerController@get_banners');
             Route::get('{store_id}/', 'BannerController@get_store_banners');
+
         });
 
         Route::group(['prefix' => 'other-banners'], function () {

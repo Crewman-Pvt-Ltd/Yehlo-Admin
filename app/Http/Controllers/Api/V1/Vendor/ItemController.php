@@ -59,7 +59,8 @@ class ItemController extends Controller
             $validator->getMessageBag()->add('unit_price', translate('messages.discount_can_not_be_more_than_or_equal'));
         }
 
-        $data = json_decode($request->translations, true);
+        // $data = json_decode($request->translations, true);
+        $data = $request->translations;
 
         if (count($data) < 1) {
             $validator->getMessageBag()->add('translations', translate('messages.Name and description in english is required'));
