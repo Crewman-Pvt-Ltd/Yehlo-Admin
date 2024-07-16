@@ -56,18 +56,17 @@
 
 
                             <div class="row g-3">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <label for="title" class="form-label">{{ translate('Question') }}</label>
                                     <input id="title" type="text" name="question[]" class="form-control"
                                         value="{{ $delivery_faq?->getRawOriginal('question') }}"
                                         placeholder="{{ translate('messages.title_here...') }}">
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <label for="sub_title" class="form-label">{{ translate('answer') }}</label>
-                                    {{-- <input id="sub_title" type="text" name="anwser[]" class="form-control"
+                                    <input id="sub_title" type="text" name="anwser[]" class="form-control"
                                         value="{{ $delivery_faq?->getRawOriginal('anwser') }}"
-                                        placeholder="{{ translate('messages.sub_title_here...') }}"> --}}
-                                    <textarea class="ckeditor form-control" name="anwser[]">{{ $delivery_faq?->getRawOriginal('anwser') }}</textarea>
+                                        placeholder="{{ translate('messages.sub_title_here...') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="lang[]" value="default">
@@ -93,6 +92,3 @@
     <!-- How it Works -->
     @include('admin-views.business-settings.landing-page-settings.partial.how-it-work')
 @endsection
-@push('script_2')
-    <script src="{{ asset('public/assets/admin/ckeditor/ckeditor.js') }}"></script>
-@endpush

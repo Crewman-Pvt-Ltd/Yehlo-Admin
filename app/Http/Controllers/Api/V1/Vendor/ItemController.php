@@ -27,7 +27,6 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-
         if (!$request->vendor->stores[0]->item_section) {
             return response()->json([
                 'errors' => [
@@ -38,11 +37,11 @@ class ItemController extends Controller
 
         $validator = Validator::make($request->all(), [
             'category_id' => 'required',
-            // 'image' => [
-            //     Rule::requiredIf(function () use ($request) {
-            //         return ($request['vendor']->stores[0]->module->module_type != 'food');
-            //     })
-            // ],
+            'image' => [
+                Rule::requiredIf(function () use ($request) {
+                    return ($request['vendor']->stores[0]->module->module_type != 'food');
+                })
+            ],
             'price' => 'required|numeric|min:0.01',
             'discount' => 'required|numeric|min:0',
             'translations' => 'required',
@@ -237,116 +236,12 @@ class ItemController extends Controller
 
 
         // =====================================
-        // $store_details = Store::where("id", $request->store_id)->first();
-        // if ($store_details->phone) {
-        //     $paid_plan = PlanPurchaseRequest::where("mobile", $store_details->phone)->first();
-
-        //     if (!$paid_plan->is_purchased) {
-
-        //         $validator->getMessageBag()->add('name', "Plan is required.");
-        //         return response()->json(['errors' => Helpers::error_processor($validator)]);
-        //     } else {
-
-        //         if (!empty(json_decode($item->choice_options, true))) {
-
-        //             // dd("product Variation");
-        //             $item->save();
-        //             $item->tags()->sync($tag_ids);
-
-
-        //             if ($request['vendor']->stores[0]->module->module_type == 'pharmacy') {
-        //                 $item_details = new PharmacyItemDetails();
-        //                 $item_details->item_id = $item->id;
-        //                 $item_details->common_condition_id = $request->condition_id;
-        //                 $item_details->is_basic = $request->basic ?? 0;
-        //                 $item_details->save();
-        //             }
-
-        //             foreach ($data as $key => $i) {
-        //                 $data[$key]['translationable_type'] = 'App\Models\Item';
-        //                 $data[$key]['translationable_id'] = $item->id;
-        //             }
-        //             Translation::insert($data);
-
-        //             $product_approval_datas = \App\Models\BusinessSetting::where('key', 'product_approval_datas')->first()?->value ?? '';
-        //             $product_approval_datas = json_decode($product_approval_datas, true);
-        //             if (Helpers::get_mail_status('product_approval') && data_get($product_approval_datas, 'Add_new_product', null) == 1) {
-        //                 $this->store_temp_data($item, $request, $tag_ids);
-        //                 $item->is_approved = 0;
-        //                 $item->save();
-        //                 return response()->json(['message' => translate('messages.The_product_will_be_published_once_it_receives_approval_from_the_admin.')], 200);
-        //             }
-
-
-        //             return response()->json(['message' => translate('messages.product_added_successfully')], 200);
-        //         } else {
-
-        //             $plan_limit = Plan::where('id', $paid_plan->plan_id)->first();
-
-        //             $current_product_count = Item::where('store_id', $store_details->id)->count();
-
-        //             // Compare current product count with plan limit
-        //             if ($current_product_count >= $plan_limit->product_limit) {
-        //                 return response()->json(['errors' => ['message' => 'Plan limit reached. Please buy a new plan to add more items.']], 403);
-        //             }
-
-        //             // dd("Product Only");
-        //             $item->save();
-        //             $item->tags()->sync($tag_ids);
-
-
-        //             if ($request['vendor']->stores[0]->module->module_type == 'pharmacy') {
-        //                 $item_details = new PharmacyItemDetails();
-        //                 $item_details->item_id = $item->id;
-        //                 $item_details->common_condition_id = $request->condition_id;
-        //                 $item_details->is_basic = $request->basic ?? 0;
-        //                 $item_details->save();
-        //             }
-
-        //             foreach ($data as $key => $i) {
-        //                 $data[$key]['translationable_type'] = 'App\Models\Item';
-        //                 $data[$key]['translationable_id'] = $item->id;
-        //             }
-        //             Translation::insert($data);
-
-        //             $product_approval_datas = \App\Models\BusinessSetting::where('key', 'product_approval_datas')->first()?->value ?? '';
-        //             $product_approval_datas = json_decode($product_approval_datas, true);
-        //             if (Helpers::get_mail_status('product_approval') && data_get($product_approval_datas, 'Add_new_product', null) == 1) {
-        //                 $this->store_temp_data($item, $request, $tag_ids);
-        //                 $item->is_approved = 0;
-        //                 $item->save();
-        //                 return response()->json(['message' => translate('messages.The_product_will_be_published_once_it_receives_approval_from_the_admin.')], 200);
-        //             }
-
-
-        //             return response()->json(['message' => translate('messages.product_added_successfully')], 200);
-        //         }
-        //     }
-
-        //     // dd($paid_plan->is_purchased);
-        // } else {
-        //     $validator->getMessageBag()->add('name', 'Vendor Details Not Found');
-        //     return response()->json(['errors' => Helpers::error_processor($validator)]);
-        // }
-
-
-
-        // =================================================
-
-
-        ////
-
-
-        $store_details = Store::where("id", $request['vendor']->stores[0]->id)->first();
-
-
-        if ($store_details && $store_details->phone) {
-
+        $store_details = Store::where("id", $request->store_id)->first();
+        if ($store_details->phone) {
             $paid_plan = PlanPurchaseRequest::where("mobile", $store_details->phone)->first();
 
+            if (!$paid_plan->is_purchased) {
 
-            if ($paid_plan == null || $paid_plan->is_purchased == 0) {
-                // dd($paid_plan);
                 $validator->getMessageBag()->add('name', "Plan is required.");
                 return response()->json(['errors' => Helpers::error_processor($validator)]);
             } else {
@@ -386,19 +281,17 @@ class ItemController extends Controller
                 } else {
 
 
+
                     $plan_limit = Plan::where('id', $paid_plan->plan_id)->first();
 
-
-
-                    $current_product_count = Item::where('store_id', $store_details->id)->where('is_approved', 1)->count();
+                    $current_product_count = Item::where('store_id', $store_details->id)->count();
 
                     // Compare current product count with plan limit
                     if ($current_product_count >= $plan_limit->product_limit) {
-
-                        $validator->getMessageBag()->add('Plan Limit Reached', "Plan limit reached, Please buy a new plan to add more items.");
-                        return response()->json(['errors' => Helpers::error_processor($validator)]);
+                        return response()->json(['errors' => ['message' => 'Plan limit reached. Please buy a new plan to add more items.']], 403);
                     }
 
+                    // dd("Product Only");
                     $item->save();
                     $item->tags()->sync($tag_ids);
 
@@ -436,6 +329,10 @@ class ItemController extends Controller
             $validator->getMessageBag()->add('name', 'Vendor Details Not Found');
             return response()->json(['errors' => Helpers::error_processor($validator)]);
         }
+
+
+
+        // =================================================
 
 
 
