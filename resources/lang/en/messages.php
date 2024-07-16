@@ -4516,25 +4516,315 @@
   'answer' => 'Answer',
   'The title field is required.' => 'The title field is required.',
   'The sub title field is required.' => 'The sub title field is required.',
-  'Electronics' => 'Electronics',
-  'Mobiles' => 'Mobiles',
-  'Add new brand' => 'Add new brand',
-  'The module id field is required.' => 'The module id field is required.',
-  'The brand name field is required.' => 'The brand name field is required.',
-  'Want to delete this brand' => 'Want to delete this brand',
-  'The brand name must be a string.' => 'The brand name must be a string.',
-  'Fashion' => 'Fashion',
-  'Appliances' => 'Appliances',
-  'Sports Fitness' => 'Sports Fitness',
-  'Pet Supplies' => 'Pet Supplies',
-  'The file must be a file of type: pdf, doc, docx.' => 'The file must be a file of type: pdf  doc  docx.',
-  'Maximum_Purchase_Quantitys_Limit' => 'Maximum Purchase Quantitys Limit',
-  'Cancellation Policy' => 'Cancellation Policy',
-  'cancellation_policy_updated' => 'Cancellation policy updated',
-  'Discount amount can\'t be greater than 100%
-' => 'Discount amount can t be greater than 100%
-',
-  'item_detailsss' => 'Item detailsss',
-  'The trademark field is required.' => 'The trademark field is required.',
-  'New_Brand_requests' => 'New Brand requests',
+  'Description 1' => 'Description 1',
+  'Description 2' => 'Description 2',
+  'Description 3' => 'Description 3',
+  'The plan duration field is required.' => 'The plan duration field is required.',
+  'description_1' => 'Description 1',
+  'description_2' => 'Description 2',
+  'description_3' => 'Description 3',
+  'plan_limit' => 'Plan limit',
+  'plan_product_limit' => 'Plan product limit',
+  'The image plan field is required.' => 'The image plan field is required.',
+  'Plan limit reached. Please buy a new plan to add more items.' => 'Plan limit reached. Please buy a new plan to add more items.',
+  'Credential_do_not_match,_please_try_again' => 'Credential do not match  please try again',
+  'Want to remove discount?' => 'Want to remove discount ',
+  'purchase_conditions' => 'Purchase conditions',
+  'services' => 'Services',
+  'Shifting' => 'Shifting',
+  'Plumbing' => 'Plumbing',
+  '
+                                                            messages.order ' => '
+                                                            messages.order ',
+  '
+                                                                messages.campaign ' => '
+                                                                messages.campaign ',
+  '
+                                                                messages.category ' => '
+                                                                messages.category ',
+  '
+                                                                messages.product ' => '
+                                                                messages.product ',
+  '
+                                                                messages.store ' => '
+                                                                messages.store ',
+  'Booking management ' => 'Booking management ',
+  'Booking Management' => 'Booking Management',
+  'Bookings' => 'Bookings',
+  '
+                                                                                                                                                            messages.order ' => '
+                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                messages.store ',
+  'Customized Requests' => 'Customized Requests',
+  'Verify Requests' => 'Verify Requests',
+  'Booking Requests' => 'Booking Requests',
+  'Accepted' => 'Accepted',
+  'Ongoing' => 'Ongoing',
+  'Canceled' => 'Canceled',
+  '
+                                                                                                                                                                                    messages.order ' => '
+                                                                                                                                                                                    messages.order ',
+  '
+                                                                                                                                                                                        messages.campaign ' => '
+                                                                                                                                                                                        messages.campaign ',
+  '
+                                                                                                                                                                                        messages.category ' => '
+                                                                                                                                                                                        messages.category ',
+  '
+                                                                                                                                                                                        messages.product ' => '
+                                                                                                                                                                                        messages.product ',
+  '
+                                                                                                                                                                                        messages.store ' => '
+                                                                                                                                                                                        messages.store ',
+  'Promotion management ' => 'Promotion management ',
+  'Discounts' => 'Discounts',
+  'Discount list' => 'Discount list',
+  'Add new ' => 'Add new ',
+  '
+                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                messages.store ',
+  'Coupans' => 'Coupans',
+  'Coupans list' => 'Coupans list',
+  'Add new Coupans' => 'Add new Coupans',
+  'Coupons' => 'Coupons',
+  'Coupons list' => 'Coupons list',
+  'Add new Coupons' => 'Add new Coupons',
+  'wallet bonus' => 'Wallet bonus',
+  'Bonus list' => 'Bonus list',
+  'Add new bonus' => 'Add new bonus',
+  'Campaigns' => 'Campaigns',
+  'Campaigns list' => 'Campaigns list',
+  'Add new Campaigns' => 'Add new Campaigns',
+  '
+                                                                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                                                                messages.store ',
+  'Advertisements' => 'Advertisements',
+  'Advertisements list' => 'Advertisements list',
+  'Add new Advertisements' => 'Add new Advertisements',
+  '
+                                                                                                                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                                                                                                                messages.store ',
+  'Promotional banners' => 'Promotional banners',
+  '
+                                                                                                                                                                                                                                                                                                                                    messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                    messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.store ',
+  'Send Notifications' => 'Send Notifications',
+  'Provider Management' => 'Provider Management',
+  '
+                                                                                                                                                                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                messages.store ',
+  'Onboarding Request' => 'Onboarding Request',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                    messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                                                    messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                                        messages.store ',
+  'Providers' => 'Providers',
+  'Providers List' => 'Providers List',
+  'Add new Providers' => 'Add new Providers',
+  'Withdraws' => 'Withdraws',
+  'Withdraws Request' => 'Withdraws Request',
+  'Withdraws Method Setup' => 'Withdraws Method Setup',
+  'Service zone Management' => 'Service zone Management',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                messages.store ',
+  'Service Zones Setup' => 'Service Zones Setup',
+  'searching for deliverymen' => 'Searching for deliverymen',
+  'Service list' => 'Service list',
+  'Add new service' => 'Add new service',
+  'New Service Requests' => 'New Service Requests',
+  'Services' => 'Services',
+  'Customer management' => 'Customer management',
+  'Customers' => 'Customers',
+  'Customer list ' => 'Customer list ',
+  'Add new Customer ' => 'Add new Customer ',
+  'message.Customers' => 'Message.Customers',
+  'Customers Wallet' => 'Customers Wallet',
+  'Add Fund to Wallet' => 'Add Fund to Wallet',
+  'Wallet Transactions' => 'Wallet Transactions',
+  'Loyalty point' => 'Loyalty point',
+  'Loyalty Points Transactions' => 'Loyalty Points Transactions',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                    messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                    messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.store ',
+  'Employee Role Setup' => 'Employee Role Setup',
+  'Employee list' => 'Employee list',
+  'Add new employee' => 'Add new employee',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.store ',
+  'All Transactions' => 'All Transactions',
+  'Reports & Analytics ' => 'Reports & Analytics ',
+  'Reports' => 'Reports',
+  'Transaction Reports ' => 'Transaction Reports ',
+  'Business Reports' => 'Business Reports',
+  'Booking Reports ' => 'Booking Reports ',
+  'Provider Reports ' => 'Provider Reports ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messages.store ',
+  'Reports & Analytics' => 'Reports & Analytics',
+  'Transaction Reports' => 'Transaction Reports',
+  'Booking Reports' => 'Booking Reports',
+  'Provider Reports' => 'Provider Reports',
+  'Keyword Search' => 'Keyword Search',
+  'Customer Search' => 'Customer Search',
+  'System addon' => 'System addon',
+  'System addons' => 'System addons',
+  'System management' => 'System management',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            messages.order ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            messages.order ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.campaign ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.campaign ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.category ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.category ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.product ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.product ',
+  '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.store ' => '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                messages.store ',
+  'Please, Enable or Create Module First' => 'Please  Enable or Create Module First',
+  'Laudary' => 'Laudary',
+  'Service Section' => 'Service Section',
+  'servives' => 'Servives',
+  'Module not found' => 'Module not found',
+  'Modules' => 'Modules',
+  'Servives Module' => 'Servives Module',
+  'Services Module' => 'Services Module',
+  'Banner_image_max_size_is_2MB' => 'Banner image max size is 2MB',
+  'Banner image max size is 2MB' => 'Banner image max size is 2MB',
 );

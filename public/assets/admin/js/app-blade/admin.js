@@ -265,6 +265,15 @@ $(".set-module").on("click", function () {
     location.href = nurl
 });
 
+$(".set-module-service").on("click", function () {
+    const url = $(this).data('url');
+    const id = $(this).data('module-id');
+    const filter_by = $(this).data('filter');
+    let nurl = new URL(url);
+    nurl.searchParams.set(filter_by, id);
+    location.href = nurl
+});
+
 $(document).ready(function(){
     $('button[type=submit]').on("click", function(){
         setTimeout(function () {

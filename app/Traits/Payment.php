@@ -36,7 +36,7 @@ trait Payment
         $payment->attribute = $payment_info->getAttribute();
         $payment->attribute_id = $payment_info->getAttributeId();
         $payment->payment_platform = $payment_info->getPaymentPlatForm();
-        // dd($payment);
+        //  dd($payment);
         $payment->save();
 
 
@@ -74,11 +74,13 @@ trait Payment
             'payfast' => 'payment/payfast/pay',
             'worldpay' => 'payment/worldpay/pay',
             'sixcash' => 'payment/sixcash/pay',
-            'phonepe' => 'payment/phonepe/payment',
+            'phonepay' => 'payment/phonepe/payment',
             'cashfree' => 'payment/cashfree/pay',
             'instamojo' => 'payment/instamojo/pay',
         ];
+
         if (array_key_exists($payment->payment_method, $routes)) {
+
             return url("{$routes[$payment->payment_method]}/?payment_id={$payment->id}");
         } else {
             return false;

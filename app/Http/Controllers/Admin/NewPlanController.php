@@ -41,8 +41,8 @@ class NewPlanController extends Controller
             'plan_name' => 'required|string|max:191',
             'plan_price' => 'required|numeric',
             'product_limit' => 'required|string|max:191',
-            'plan_duration' => 'required|in:3,6,12', // Adjusted validation rule for plan duration
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation for image upload
+            // 'plan_duration' => 'required|in:3,6,12', // Adjusted validation rule for plan duration
+            'imagePlan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation for image upload
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -60,20 +60,25 @@ class NewPlanController extends Controller
         $planPrice = $request->input('plan_price');
         $productLimit = $request->input('product_limit');
         $planDuration = $request->input('plan_duration');
+        // dd($request);
+        $desc_1 = $request->desc_1;
+        $desc_2 = $request->desc_2;
+        $desc_3 = $request->desc_3;
+
+// dd($request);
+
+        // $description = json_encode($request->input('description'));
+        // $string = trim(str_replace('\n', '', (str_replace('\r', '', $description))));
+        // $description1 = str_replace("<\/p>", ',', $string);
+        // $description1 = str_replace("<p>", '', $description1);
+        // $str = trim($description1, '[]"');
+        // //  $array = explode(',', $str);
+        // $description = $str;
 
 
-        $description = json_encode($request->input('description'));
-        $string = trim(str_replace('\n', '', (str_replace('\r', '', $description))));
-        $description1 = str_replace("<\/p>", ',', $string);
-        $description1 = str_replace("<p>", '', $description1);
-        $str = trim($description1, '[]"');
-        //  $array = explode(',', $str);
-        $description = $str;
 
 
-
-
-        $image = $request->file('image'); // Uploaded image file
+        $image = $request->file('imagePlan'); // Uploaded image file
         // Save the image to storage and get the path
         $imagePath = Helpers::upload('plan/', 'png', $image);
 
@@ -87,14 +92,15 @@ class NewPlanController extends Controller
         $plan->price = $planPrice;
         $plan->plan_duration = $planDuration;
         $plan->product_limit = $productLimit;
-        $plan->description = $description;
+        $plan->desc_1 = $desc_1;
+        $plan->desc_2 = $desc_2;
+        $plan->desc_3 = $desc_3;
         $plan->mode = env('APP_MODE');
         $plan->status = 1; // Assuming status 1 means active
         $plan->add_by = auth()->id(); // Assuming you want to store the user who added the plan
         $plan->updated_by = null;
         $plan->image = $imagePath;
 
-        // Save the plan
         $plan->save();
 
         // Redirect to a success page or wherever you need
@@ -190,25 +196,32 @@ class NewPlanController extends Controller
 
     public function updateValue(Request $request)
     {
-        // Extract the edit value from the request
+
         $editValue = $request['editValue'];
 
-        $image = $request->file('image');
+
+        $image = $request->file('imagePlan');
+
+
 
         $imagePath = Helpers::upload('plan/', 'png', $image);
-
-        // Find the record to update based on the edit value
         $record = Plan::findOrFail($editValue);
-
-        // Update the record with the provided data
         $record->name = $request->input('plan_name');
         $record->price = $request->input('plan_price');
         $record->product_limit = $request->input('product_limit');
         $record->plan_duration = $request->input('plan_duration');
-        $record->description = $request->input('description');
-        $record->image = $imagePath;
+        $record->desc_1 = $request->input('desc_1');
+        $record->desc_2 = $request->input('desc_2');
+        $record->desc_3 = $request->input('desc_3');
+        // dd($imagePath);
+        if($imagePath == "def.png"){
+            $record->image = $record->image;
+        }
+        else{
+            $record->image = $imagePath;
+        }
 
-        // Save the updated record
+
         $record->save();
 
         // Optionally, redirect back with a success message

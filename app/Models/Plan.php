@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models; 
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,9 @@ class Plan extends Model
         'type',
         'price',
         'product_limit',
-        'description',
+        'desc_1',
+        'desc_2',
+        'desc_3',
         'mode',
         'status',
         'plan_duration',

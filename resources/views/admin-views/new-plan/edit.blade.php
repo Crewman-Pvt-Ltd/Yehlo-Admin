@@ -85,7 +85,7 @@
                     </div>
                     <input type="hidden" name="lang[]" value="">
 
-                    <div class="form-group  lang_form" id="">
+                    {{-- <div class="form-group  lang_form" id="">
                         <label class="input-label"
                             for="exampleFormControlInput1">{{translate('messages.plan_validate')}}
                         </label>
@@ -110,8 +110,8 @@
                         {!! json_decode($plan->description)[0] ?? old('description') !!}
 
                     </textarea>
-                    </div>
-                    <input type="hidden" name="lang[]" value="">
+                    </div> --}}
+                    {{-- <input type="hidden" name="lang[]" value=""> --}}
 
 
 
@@ -125,13 +125,43 @@
 
                             <div class="icon-file-group">
                                 <div class="icon-file">
-                                    <input type="file" name="image" id="customFileEg1"
+                                    <input type="file" name="imagePlan" id="customFileEg1"
                                         class="custom-file-input read-url"
                                         accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
                                     <i class="tio-edit"></i>
                                 </div>
                             </div>
                         </label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group  lang_form" id="">
+                                <label class="input-label"
+                                    for="exampleFormControlInput1">{{ translate('messages.Description 1') }}
+                                </label>
+                                <input type="text" name="desc_1" class="form-control" value="{{ $plan->desc_1 ?? old('desc_1') }}"
+                                    placeholder="{{ translate('messages.product_limit') }}" maxlength="191">
+                            </div>
+                            <input type="hidden" name="lang[]" value="">
+
+                            <div class="form-group  lang_form" id="">
+                                <label class="input-label"
+                                    for="exampleFormControlInput1">{{ translate('messages.Description 2') }}
+                                </label>
+                                <input type="text" name="desc_2" class="form-control"value="{{ $plan->desc_2 ?? old('desc_2') }}"
+                                    placeholder="{{ translate('messages.product_limit') }}" maxlength="191">
+                            </div>
+                            <input type="hidden" name="lang[]" value="">
+                            <div class="form-group  lang_form" id="">
+                                <label class="input-label"
+                                    for="exampleFormControlInput1">{{ translate('messages.Description 3') }}
+                                </label>
+                                <input type="text" name="desc_3" class="form-control" value="{{ $plan->desc_3 ?? old('desc_3') }}"
+                                    placeholder="{{ translate('messages.product_limit') }}" maxlength="191">
+                            </div>
+                            <input type="hidden" name="lang[]" value="">
+                        </div>
+
                     </div>
                 </div>
             </div>

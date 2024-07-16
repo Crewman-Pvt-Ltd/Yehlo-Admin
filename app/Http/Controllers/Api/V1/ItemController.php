@@ -802,8 +802,11 @@ class ItemController extends Controller
 
         $itemQuery = Item::query();
 
-        $category_ids = $category_ids ? explode(',', trim($category_ids, '[]')) : [];
-        $brand_ids = $brand_ids ? explode(',', trim($brand_ids, '[]')) : [];
+        $category_ids = json_decode($category_ids);
+        $brand_ids = json_decode($brand_ids);
+
+        // $category_ids = $category_ids ? explode(',', trim($category_ids, '[]')) : [];
+        // $brand_ids = $brand_ids ? explode(',', trim($brand_ids, '[]')) : [];
 
         if (!empty($category_ids)) {
             $itemQuery->where(function ($query) use ($category_ids) {
@@ -816,13 +819,11 @@ class ItemController extends Controller
             $itemQuery->whereIn('brand_id', $brand_ids);
         }
 
-        // Handle brand data type search by name
         if ($data_type === 'brand' && $name) {
             $brand_ids = Brand::where('brand_name', 'like', "%{$name}%")->pluck('id')->toArray();
             $itemQuery->whereIn('brand_id', $brand_ids);
         }
 
-        // Handle price range
         if ($min_price !== null && $max_price !== null) {
             $itemQuery->whereBetween('price', [$min_price, $max_price]);
         }
@@ -890,11 +891,11 @@ class ItemController extends Controller
         // Handle list type 'store'
         if ($list_type === 'store') {
             // Only proceed if 'name' is provided
-            if (!$name) {
-                return response()->json(['error' => 'Name parameter is required for store list type.'], 403);
-            }
+            // if (!$name) {
+            //     return response()->json(['error' => 'Name parameter is required for store list type.'], 403);
+            // }
 
-            $stores = Store::where('name', 'like', "%{$name}%")->paginate($limit, ['*'], 'page', $offset);
+            $stores = Store::where('module_id', $module_id)->paginate($limit, ['*'], 'page', $offset);
 
             return response()->json([
                 'total_size' => $stores->total(),
@@ -945,8 +946,17 @@ class ItemController extends Controller
             $item->flash_sale = in_array($item->id, $flashSaleItems) ? 1 : 0;
             $item->storage = [];
 
+            $item->store_discount = 0;
+            $item->quantity =0;
+
             return $item;
         });
+
+        // dd($itemsWithModuleData);
+        //  print_r($itemsWithModuleData);
+
+        //  exit();
+
 
         // Prepare categories if data_type is category or subcategory
         $categories = [];

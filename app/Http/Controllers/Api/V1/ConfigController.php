@@ -125,6 +125,9 @@ class ConfigController extends Controller
         );
 
 
+        // dd(config('module.grocery'));
+
+
         return response()->json([
             'business_name' => $settings['business_name'],
             // 'business_open_time' => $settings['business_open_time'],
@@ -675,7 +678,7 @@ class ConfigController extends Controller
                 'seller_description' => (isset($settings['seller_description']))  ? $settings['seller_description'] : null,
 
 
-
+                'feature_title' => (isset($settings['feature_title']))  ? $settings['feature_title'] : null,
 
                 'admin_features' => (isset($admin_features))  ? $admin_features : null,
                 'promotion_banners' => (isset($promotion_banners))  ? $promotion_banners : null,
@@ -719,7 +722,7 @@ class ConfigController extends Controller
             $promotion_banners['promotional_data'][] = [
                 'title' => $banner->title,
                 'sub_title' => $banner->subtitle,
-                'image' => asset('storage/delivery_promotion/' . $banner->image),
+                'image' => asset('storage/app/public/delivery_promotion/' . $banner->image),
             ];
         }
 

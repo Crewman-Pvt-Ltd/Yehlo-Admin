@@ -2,7 +2,7 @@
 
 return [
     'module_type'=>[
-        'grocery', 'food', 'pharmacy', 'ecommerce','parcel'
+        'grocery', 'food', 'pharmacy', 'ecommerce','parcel', 'services'
     ],
 
     'grocery'=>[
@@ -100,6 +100,20 @@ return [
         'is_parcel'=>true,
         'organic'=>false,
         'cutlery'=>false,
+        'common_condition'=>false,
+        'basic'=>false,
+        'description'=>'',
+    ],
+
+    'services'=>[
+        'order_status'=>['accepted'=>false],
+        'order_place_to_schedule_interval'=>false,
+        'add_on'=>false,
+        'order_attachment'=>false,
+        'always_open'=>true,
+        'all_zone_service'=>false,
+        'item_available_time'=>false,
+        'show_restaurant_text'=>false,
         'common_condition'=>false,
         'basic'=>false,
         'description'=>'',

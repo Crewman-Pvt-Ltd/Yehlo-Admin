@@ -11,24 +11,20 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
 
     Route::group(['middleware' => ['admin', 'current-module']], function () {
 
+        /// brand
+
         Route::get('/brand', 'BrandController@index')->name('brand');
+
+
         Route::post('/brand-store/{id?}', 'BrandController@store')->name('brand-store');
-        // Route::get('/brand-edit', 'BrandController@edit')->name('brand-edit');
-        Route::get('brand/{id}/edit', 'BrandController@edit')->name('brand-edit');
+
+
+
+        Route::get('/brand-edit/{id}', 'BrandController@edit')->name('brand-edit');
 
         Route::delete('/brand/{id}', 'BrandController@destroy')->name('brand-destroy');
 
-//-----------------------------------------------Brand Request-------------------------------------//
-        Route::get('/brand-request', 'BrandController@getbrandrequests')->name('brand-request');
-        Route::get('/brand/approve/{id}', 'BrandController@brandApprove')->name('brand-approve');
-        Route::get('/brand/deny/{id}', 'BrandController@brandDeny')->name('brand.deny');
-Route::delete('/brand/destroy/{id}', 'BrandController@brandDelete')->name('brand.destroy');
-
-
-
-
-
-
+        /// brand
 
 
         Route::get('/new-plan', 'NewPlanController@index')->name('new-plan');
@@ -381,6 +377,7 @@ Route::delete('/brand/destroy/{id}', 'BrandController@brandDelete')->name('brand
             // admin landing page
 
 
+
             // delivery Man routes
 
 
@@ -412,6 +409,10 @@ Route::delete('/brand/destroy/{id}', 'BrandController@brandDelete')->name('brand
             Route::get('vendor-promotional-status/{id}/{status}', 'BusinessSettingsController@vendor_promotional_status')->name('vendor-promotional-status');
 
             // vendor landing page
+
+
+
+
 
             Route::post('review-section/update/{id}', 'BusinessSettingsController@review_update')->name('review-update');
             Route::delete('review/delete/{review}', 'BusinessSettingsController@review_destroy')->name('review-delete');
@@ -463,6 +464,15 @@ Route::delete('/brand/destroy/{id}', 'BrandController@brandDelete')->name('brand
 
             Route::get('pages/business-page/privacy-policy', 'BusinessSettingsController@privacy_policy')->name('privacy-policy');
             Route::post('pages/business-page/privacy-policy', 'BusinessSettingsController@privacy_policy_update');
+
+
+            //////////////////////
+
+            Route::get('pages/business-page/delivery-man/privacy-policy', 'BusinessSettingsController@delivery_privacy_policy')->name('delivery-man-privacy-policy');
+            Route::post('pages/business-page/delivery-man/privacy-policy', 'BusinessSettingsController@delivery_privacy_policy_update');
+
+            /////////////////////
+
 
             Route::get('pages/business-page/about-us', 'BusinessSettingsController@about_us')->name('about-us');
             Route::post('pages/business-page/about-us', 'BusinessSettingsController@about_us_update');

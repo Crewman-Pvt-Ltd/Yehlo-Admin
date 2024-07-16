@@ -47,7 +47,6 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name.0' => 'required',
             'name.*' => 'max:191',
@@ -63,7 +62,6 @@ class ItemController extends Controller
             'description.*' => 'max:1000',
             'name.0' => 'required',
             'description.0' => 'required',
-       
         ], [
             'description.*.max' => translate('messages.description_length_warning'),
             'name.0.required' => translate('messages.item_name_required'),
@@ -260,9 +258,6 @@ class ItemController extends Controller
         $item->store_id = $request->store_id;
         $item->maximum_cart_quantity = $request->maximum_cart_quantity;
         $item->veg = $request->veg;
-        if ($request->has('brand_id')){
-            $item->brand_id = $request->brand_id;
-        }
         $item->module_id = Config::get('module.current_module_id');
         $module_type = Config::get('module.current_module_type');
         if ($module_type == 'grocery') {
@@ -274,12 +269,13 @@ class ItemController extends Controller
 
         $store_details = Store::where("id", $request->store_id)->first();
 
+        if ($store_details && $store_details->phone) {
 
-        if ($store_details->phone) {
             $paid_plan = PlanPurchaseRequest::where("mobile", $store_details->phone)->first();
 
-            if (!$paid_plan->is_purchased) {
 
+            if ($paid_plan == null || $paid_plan->is_purchased == 0) {
+                // dd($paid_plan);
                 $validator->getMessageBag()->add('name', "Plan is required.");
                 return response()->json(['errors' => Helpers::error_processor($validator)]);
             } else {
@@ -311,7 +307,11 @@ class ItemController extends Controller
 
                     // Compare current product count with plan limit
                     if ($current_product_count >= $plan_limit->product_limit) {
-                        return response()->json(['errors' => ['message' => 'Plan limit reached. Please buy a new plan to add more items.']], 403);
+
+                        $validator->getMessageBag()->add('name', "Plan limit reached, Please buy a new plan to add more items.");
+                        return response()->json(['errors' => Helpers::error_processor($validator)]);
+                        // return response()->json(['errors' => translate('messages.Plan limit reached, Please buy a new plan to add more items.')], 200);
+                        // return response()->json(['errors' => ['message' => 'Plan limit reached. Please buy a new plan to add more items.']], 403);
                     }
 
                     // dd("Product Only");

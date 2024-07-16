@@ -268,24 +268,6 @@
                                         <input type="number"  placeholder="{{ translate('messages.Ex:_10') }}"  class="form-control" name="maximum_cart_quantity" min="0" id="cart_quantity">
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="form-group mb-0">
-                                        <label class="input-label">
-                                            Brand
-                                            <span class="input-label-secondary text--title" data-toggle="tooltip"
-                                                title="Choose your preferred brand">
-                                                <i class="tio-info-outined"></i>
-                                            </span>
-                                        </label>
-                                        <select class="form-control" name="brand_id">
-                                            <option value="" selected>Select a brand</option>
-                                            @foreach (\App\Models\Brand::where('module_id', 4)->get() as $value)
-                                            <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
-                                        @endforeach
-                                        
-                                        </select>
-                                    </div>          
-                                </div>
                                 <div class="col-sm-6 col-lg-4" id="organic">
                                     <div class="form-check mb-0 p-6">
                                         <input class="form-check-input" name="organic" type="checkbox" value="1" id="flexCheckDefault" checked>
@@ -661,10 +643,10 @@
             contentType: false,
             processData: false,
             beforeSend: function () {
-                $('#loading').show();
+                //$('#loading').show();
             },
             success: function (data) {
-                $('#loading').hide();
+               // $('#loading').hide();
                 if (data.errors) {
                     for (let i = 0; i < data.errors.length; i++) {
                         toastr.error(data.errors[i].message, {

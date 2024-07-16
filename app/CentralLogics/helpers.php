@@ -1791,8 +1791,11 @@ class Helpers
 
     public static function upload(string $dir, string $format, $image = null)
     {
+
+        // dd($image);
         if ($image != null) {
             $imageName = \Carbon\Carbon::now()->toDateString() . "-" . uniqid() . "." . $format;
+
             if (!Storage::disk('public')->exists($dir)) {
                 Storage::disk('public')->makeDirectory($dir);
             }
@@ -1836,7 +1839,9 @@ class Helpers
         }
 
         $permission = auth('admin')->user()->role->modules;
+
         if (isset($permission) && in_array($mod_name, (array)json_decode($permission)) == true) {
+
             return true;
         }
 

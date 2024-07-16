@@ -45,8 +45,9 @@ class VendorLoginController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ];
-
+        // dd($request);
         if ($vendor_type == 'owner') {
+
             if (auth('vendor')->attempt($data)) {
                 $token = $this->genarate_token($request['email']);
                 $vendor = Vendor::where(['email' => $request['email']])->first();
@@ -276,32 +277,76 @@ class VendorLoginController extends Controller
 
 
 
-    public function getplandetails()
+    // public function getplandetails()
+    // {
+
+    //     $groupedPlans = Plan::all()
+    //         ->orderBy('type')
+    //         ->get()
+    //         ->groupBy('type')
+    //         ->map(function ($plans) {
+    //             // $prices = $plans->pluck('price', 'plan_duration')->toArray();
+    //             // $product_limit = $plans->pluck('product_limit', 'plan_duration')->toArray();
+
+    //             return [
+    //                 // 'title' => $plans->first()->name,
+    //                 // 'prices' => $prices,
+    //                 // 'product_limit' => $product_limit,
+    //                 // 'description' => $plans->first()->description,
+    //                 // 'image' => asset('storage/app/public/plan/' . $plans->first()->image),
+    //                 // 'plan_duration' => implode(',', array_keys($prices)),
+    //                 'plan' => $plans,
+    //             ];
+    //         });
+
+    //     $jsonResponse = $groupedPlans->toJson();
+
+    //     return $jsonResponse;
+    // }
+
+    // public function getPlanDetails($type = null)
+    // {
+    //     $query = Plan::query();
+
+    //     // Filter by type if provided
+    //     if (!is_null($type)) {
+    //         $query->where('type', $type);
+    //     }
+
+    //     $groupedPlans = $query->orderBy('type')
+    //         ->get()
+    //         ->groupBy('type');
+
+
+    //     $jsonResponse = $groupedPlans->toJson();
+
+    //     return $jsonResponse;
+    // }
+    public function getPlanDetails($type = null)
     {
+        $query = Plan::query();
 
-        $groupedPlans = Plan::select('name', 'type', 'price', 'product_limit', 'plan_duration', 'description', 'image')
-            ->distinct()
-            ->orderBy('type')
-            ->get()
-            ->groupBy('type')
-            ->map(function ($plans) {
-                $prices = $plans->pluck('price', 'plan_duration')->toArray();
-                $product_limit = $plans->pluck('product_limit', 'plan_duration')->toArray();
+        if (!is_null($type)) {
+            $query->where('type', $type);
+        }
 
-                return [
-                    'title' => $plans->first()->name,
-                    'prices' => $prices,
-                    'product_limit' => $product_limit,
-                    'description' => $plans->first()->description,
-                    'image' => asset('storage/app/public/plan/' . $plans->first()->image),
-                    'plan_duration' => implode(',', array_keys($prices)),
-                ];
-            });
+        $plans = $query->orderBy('type')->get();
 
-        $jsonResponse = $groupedPlans->toJson();
+        $plans->each(function ($plan) {
+            $plan->image_url = asset('storage/app/public/plan/' . $plan->image);
+        });
 
-        return $jsonResponse;
+        $groupedPlans = $plans->groupBy('type');
+
+        $result = [];
+        foreach ($groupedPlans as $type => $planGroup) {
+            $result[$type] = $planGroup;
+        }
+
+        return response()->json($result);
     }
+
+
 
 
     // public function getplandetails()

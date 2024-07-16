@@ -19,14 +19,14 @@
             border: 10px solid #f2f2f2;
             margin-top: 100px;
         }
-        h1, p {
+        h1, p , h4{
             text-align: center;
         }
     </style>
 </head>
 <body>
 <div class="success-box">
-    <h4>PaymentSuccessful!</h4>
+    <h4>Payment Successful!</h4>
     {{-- {{  dd($payment_details) }} --}}
     <p>Transaction ID: {{ $payment_details['transactionId']}}</p>
     <p>Provider Reference ID: {{ $payment_details['providerReferenceId'] }}</p>

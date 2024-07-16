@@ -641,10 +641,10 @@
                                 <span class="text-truncate position-relative overflow-visible">
                                     {{ translate('messages.new_stores') }}
                                     @php(
-    $new_str = \App\Models\Store::whereHas('vendor', function ($query) {
-        return $query->where('status', null);
-    })->module(Config::get('module.current_module_id'))->get()
-);
+                                    $new_str = \App\Models\Store::whereHas('vendor', function ($query) {
+                                        return $query->where('status', null);
+                                    })->module(Config::get('module.current_module_id'))->get()
+                                );
                                     @if (count($new_str) > 0)
                                         <span class="btn-status btn-status-danger border-0 size-8px"></span>
                                     @endif
