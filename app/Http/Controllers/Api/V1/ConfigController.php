@@ -722,7 +722,7 @@ class ConfigController extends Controller
             $promotion_banners['promotional_data'][] = [
                 'title' => $banner->title,
                 'sub_title' => $banner->subtitle,
-                'image' => asset('storage/app/public/delivery_promotion/' . $banner->image),
+                'image' => asset('storage/delivery_promotion/' . $banner->image),
             ];
         }
 

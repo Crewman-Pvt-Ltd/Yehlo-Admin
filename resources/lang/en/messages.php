@@ -4516,6 +4516,74 @@
   'answer' => 'Answer',
   'The title field is required.' => 'The title field is required.',
   'The sub title field is required.' => 'The sub title field is required.',
+  'Electronics' => 'Electronics',
+  'Home & Kitchen' => 'Home & Kitchen',
+  'Pet Care' => 'Pet Care',
+  'Ayurveda' => 'Ayurveda',
+  'Fashion' => 'Fashion',
+  'Mobiles' => 'Mobiles',
+  'Appliances' => 'Appliances',
+  'Sports Fitness' => 'Sports Fitness',
+  'Pet Supplies' => 'Pet Supplies',
+  'Yehlo Dost' => 'Yehlo Dost',
+  'attribute_added_successfully' => 'Attribute added successfully',
+  'condition_added_successfully' => 'Condition added successfully',
+  'Discount amount can\'t be greater than 100%
+' => 'Discount amount can t be greater than 100%
+',
+  'Homeopathy' => 'Homeopathy',
+  '
+                                                                                                                                                                                                                                                                                                            messages.zone ' => '
+                                                                                                                                                                                                                                                                                                            messages.zone ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.setting ' => '
+                                                                                                                                                                                                                                                                                                                messages.setting ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.pages ' => '
+                                                                                                                                                                                                                                                                                                                messages.pages ',
+  '
+                                                                                                                                                                                                                                                                                                                messages .3 rd_party ' => '
+                                                                                                                                                                                                                                                                                                                messages .3 rd party ',
+  '
+                                                                                                                                                                                                                                                                                                                messages.system ' => '
+                                                                                                                                                                                                                                                                                                                messages.system ',
+  'Add new brand' => 'Add new brand',
+  'Want to delete this brand' => 'Want to delete this brand',
+  'The minimum order field is required.' => 'The minimum order field is required.',
+  'The maximum delivery time must be greater than 44.' => 'The maximum delivery time must be greater than 44.',
+  '
+                                                                                                                                                                                                                                                                                                                                    messages.zone ' => '
+                                                                                                                                                                                                                                                                                                                                    messages.zone ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.setting ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.setting ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.pages ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.pages ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages .3 rd_party ' => '
+                                                                                                                                                                                                                                                                                                                                        messages .3 rd party ',
+  '
+                                                                                                                                                                                                                                                                                                                                        messages.system ' => '
+                                                                                                                                                                                                                                                                                                                                        messages.system ',
+  'Write_the_sub_title_within_50_characters' => 'Write the sub title within 50 characters',
+  '(size: 4:4)' => '(size: 4:4)',
+  'The image must be a file of type: jpeg, png, jpg, gif, svg.' => 'The image must be a file of type: jpeg  png  jpg  gif  svg.',
+  'Promotional Updated' => 'Promotional Updated',
+  'faq' => 'Faq',
+  'delivery_faq' => 'Delivery faq',
+  'Questions...' => 'Questions...',
+  'Anwser' => 'Anwser',
+  'Anwser...' => 'Anwser...',
+  'Question' => 'Question',
+  'By Turning ON FAQ Section' => 'By Turning ON FAQ Section',
+  'By Turning OFF FAQ Section' => 'By Turning OFF FAQ Section',
+  'FAQ will be enabled. You will be able to see  activity' => 'FAQ will be enabled. You will be able to see  activity',
+  'FAQ will be disabled. You will be unable to see  activity' => 'FAQ will be disabled. You will be unable to see  activity',
+  'Qurstion' => 'Qurstion',
+  'answer' => 'Answer',
+  'The title field is required.' => 'The title field is required.',
+  'The sub title field is required.' => 'The sub title field is required.',
   'Description 1' => 'Description 1',
   'Description 2' => 'Description 2',
   'Description 3' => 'Description 3',

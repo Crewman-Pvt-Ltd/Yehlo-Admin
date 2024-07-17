@@ -50,16 +50,15 @@
                         <div class="card-body">
 
                             <div class="row g-3">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <label for="title" class="form-label">Questions</label>
                                     <input id="title" type="text" name="questions[]" class="form-control"
                                         placeholder="{{ translate('messages.Questions...') }}">
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <label for="title" class="form-label">{{ translate('Anwser') }}</label>
-                                    {{-- <input id="title" type="text" name="anwser[]" class="form-control"
-                                        placeholder="{{ translate('messages.Anwser...') }}"> --}}
-                                        <textarea class="ckeditor form-control" name="anwser[]"></textarea>
+                                    <input id="title" type="text" name="anwser[]" class="form-control"
+                                        placeholder="{{ translate('messages.Anwser...') }}">
                                 </div>
 
 
@@ -185,6 +184,3 @@
     <!-- How it Works -->
     @include('admin-views.business-settings.landing-page-settings.partial.how-it-work')
 @endsection
-@push('script_2')
-    <script src="{{asset('public/assets/admin/ckeditor/ckeditor.js')}}"></script>
-@endpush

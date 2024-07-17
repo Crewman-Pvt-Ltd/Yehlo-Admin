@@ -137,3 +137,63 @@ class BrandController extends Controller
             ->with('error', 'Brand not found');
     }
 }
+
+public function getbrandrequests()
+{
+    $brands = Brand::all();
+
+    $brandsData = $brands->map(function($brand) {
+        $statusLabel = '';
+        switch ($brand->is_approved) {
+            case 0:
+                $statusLabel = 'Pending';
+                break;
+            case 1:
+                $statusLabel = 'Approved';
+                break;
+            case 3:
+                $statusLabel = 'Rejected';
+                break;
+        }
+
+        return [
+            "id" => $brand->id,
+            "name" => $brand->brand_name,
+            "status" => $statusLabel,
+            "vendor_id" => $brand->vendor_id,
+            "image" => $brand->image,
+            "created_by" => $brand->created_by,
+        ];
+    });
+
+    return view('admin-views.brand-requests.index', ['brands' => $brandsData]);
+}
+
+public function brandApprove($id)
+{
+    $brand = Brand::find($id);
+    $brand->is_approved = 1; 
+    $brand->save();
+
+    return redirect()->back()->with('success', 'Brand approved successfully.');
+}
+
+public function brandDeny($id)
+{
+    $brand = Brand::find($id);
+    $brand->is_approved = 3; 
+    $brand->save();
+
+    return redirect()->back()->with('success', 'Brand rejected successfully.');
+}
+
+public function brandDelete($id)
+{
+    $brand = Brand::find($id);
+    $brand->delete();
+
+    return redirect()->back()->with('success', 'Brand deleted successfully.');
+}
+
+
+}

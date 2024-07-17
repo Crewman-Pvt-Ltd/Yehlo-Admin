@@ -199,4 +199,13 @@
                 $('#viewer').attr('src', "{{asset('public/assets/admin/img/upload-img.png')}}");
         })
     </script>
+    <script>
+        document.getElementById('customFileEg1').addEventListener('change', function() {
+            const [file] = this.files;
+            if (file) {
+                document.getElementById('viewer').src = URL.createObjectURL(file);
+            }
+        });
+        </script>
+        
 @endpush
