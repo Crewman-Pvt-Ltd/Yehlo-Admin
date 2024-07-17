@@ -207,7 +207,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'store', 'as' => 'store.'], function () {
             Route::get('get-stores-data/{store}', 'VendorController@get_store_data')->name('get-stores-data');
             Route::get('store-filter/{id}', 'VendorController@store_filter')->name('store-filter');
-            Route::get('get-account-data/{store}', 'VendorController@get_account_data')->name('store-filter');
+            // Route::get('get-account-data/{store}', 'VendorController@get_account_data')->name('store-filter');
+            Route::get('get-account-data/{store}', 'VendorController@get_account_data')->name('get-account-data');
             Route::get('get-stores', 'VendorController@get_stores')->name('get-stores');
             Route::get('get-addons', 'VendorController@get_addons')->name('get_addons');
             Route::group(['middleware' => ['module:store']], function () {
@@ -380,8 +381,6 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
             // delivery Man routes
 
             // delivery Man routes
-
-
             Route::get('pages/delivery-landing-page-settings/{tab?}', 'BusinessSettingsController@delivery_landing_page_settings')->name('delivery-landing-page-settings');
             Route::POST('pages/delivery-landing-page-settings/{tab}', 'BusinessSettingsController@update_delivery_landing_page_settings')->name('delivery-landing-page-settings');
 
